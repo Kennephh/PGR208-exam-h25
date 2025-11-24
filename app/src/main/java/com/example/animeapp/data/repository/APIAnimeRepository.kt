@@ -2,6 +2,7 @@ package com.example.animeapp.data.repository
 
 import android.util.Log
 import com.example.animeapp.data.api.Anime
+import com.example.animeapp.data.api.AnimeListData
 import com.example.animeapp.data.api.AnimeService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,7 +45,14 @@ object APIAnimeRepository {
         }
     }
 
-    suspend fun getAnimeList(){
+    suspend fun getAnimeList(): AnimeListData {
+        try {
+
+            val response = _animeService.getAnimeList()
+            return if (response.isSuccessful)
+        } catch (e: Exception){
+
+        }
 
     }
 
