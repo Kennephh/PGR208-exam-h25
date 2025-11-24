@@ -44,4 +44,8 @@ object APIAnimeRepository {
         }
     }
 
+    suspend fun getAnimeList(){
+
+    }
+
 }
