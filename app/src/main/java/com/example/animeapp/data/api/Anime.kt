@@ -7,6 +7,3 @@ data class Anime(
     val id : Int?,
     val title : String?
 )
-data class AnimeData(
-    val data : Anime
-)

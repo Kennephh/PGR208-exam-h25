@@ -1,10 +1,9 @@
 package com.example.animeapp.data.api
-
 import com.google.gson.annotations.SerializedName
 
-data class AnimeListData(
+data class AnimeListResponse(
     val data : List<Anime>,
-    val pagination : Pagination?
+   // val pagination : Pagination?
 )
 
 // SerialzedName da de ikke er private verdier så kan ikke bruke underscore
