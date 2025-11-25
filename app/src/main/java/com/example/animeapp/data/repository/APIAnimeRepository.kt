@@ -47,16 +47,16 @@ object APIAnimeRepository {
 
     suspend fun getAnimeList(
         page: Int = 1,
-        query: String? = null,
-        orderBy : String? = null,
-        sort : String? = "desc"
+        // query: String? = null,
+        // orderBy : String? = null,
+        // sort : String? = "desc"
     ): AnimeListResponse?{
         try {
             val response = _animeService.getAnimeList(
                 page = page,
-                query = query,
-                orderBy = orderBy,
-                sort = sort
+                // query = query,
+                // orderBy = orderBy,
+                // sort = sort
             )
         return if (response.isSuccessful){
             response.body()

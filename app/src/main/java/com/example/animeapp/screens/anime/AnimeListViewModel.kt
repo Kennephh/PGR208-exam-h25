@@ -2,21 +2,41 @@ package com.example.animeapp.screens.anime
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animeapp.data.api.AnimeListResponse
+import com.example.animeapp.data.api.Anime
 import com.example.animeapp.data.repository.APIAnimeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AnimeListViewModel : ViewModel() {
-    private val _animeList = MutableStateFlow<AnimeListResponse?>(null)
+    private val _animeList = MutableStateFlow<List<Anime>>(emptyList())
     val animeList = _animeList.asStateFlow()
-    fun setAnimeList(){
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _hasNextPage = MutableStateFlow(true)
+    val hasNextPage = _hasNextPage.asStateFlow()
+
+    private var currentPage = 1
+
+    init {
+        loadMoreAnime()}
+
+    fun loadMoreAnime(){
+        if(_isLoading.value || !_hasNextPage.value ) return
         viewModelScope.launch {
-            _animeList.value = APIAnimeRepository.getAnimeList(page = 1)
+            _isLoading.value = true
+            val result = APIAnimeRepository.getAnimeList(page = currentPage)
+            val newAnime = result?.data.orEmpty()
+
+            _animeList.value = if (currentPage == 1) newAnime else _animeList.value + newAnime
+
+            _hasNextPage.value = result?.pagination?.hasNextPage == true
+
+            currentPage++
+
+            _isLoading.value = false
         }
     }
-
-    init {setAnimeList()}
-
 }
