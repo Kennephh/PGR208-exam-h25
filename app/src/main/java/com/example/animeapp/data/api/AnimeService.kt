@@ -1,9 +1,9 @@
 package com.example.animeapp.data.api
 
+import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 // Sørget for å importere retrofit2 sin respons, ikke okhttp3
 interface AnimeService {
@@ -14,12 +14,12 @@ interface AnimeService {
         @Path("id") id : Int
     ) : Response<AnimeData>
 
-    // Hent flere animer, jikan har max på 25 per side
+    // Hent flere animer, legger også til flere kall til tileggsfunksjoner; sortering
     @GET("anime")
     suspend fun getAnimeList(
         @Query("page") page: Int = 1,
-        @Query("q") query: String? = null,
-        @Query("order_by") orderBy: String? = null,
-        @Query("sort") sort: String? = "desc"
-    ): Response<AnimeListData>?
+        // @Query("q") query: String? = null,
+        // @Query("order_by") orderBy: String? = null,
+        // @Query("sort") sort: String? = "desc"
+    ): Response<AnimeListResponse>
 }
