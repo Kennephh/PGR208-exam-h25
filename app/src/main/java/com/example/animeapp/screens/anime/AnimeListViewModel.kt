@@ -21,6 +21,9 @@ class AnimeListViewModel : ViewModel() {
         }
     }
 
-    init {setAnimeList()}
+            currentPage++
 
+            _isLoading.value = false
+        }
+    }
 }

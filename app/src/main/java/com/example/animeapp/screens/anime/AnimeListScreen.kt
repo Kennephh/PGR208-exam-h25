@@ -5,11 +5,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import com.example.animeapp.screens.animeSearch.AnimeItem
 
 @Composable
-fun AnimeListScreen(animeListViewModel: AnimeListViewModel){
+fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
+    val animeList by viewModel.animeList.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val hasNextPage by viewModel.hasNextPage.collectAsState()
 
     val animeList = animeListViewModel.animeList.collectAsState()
 
