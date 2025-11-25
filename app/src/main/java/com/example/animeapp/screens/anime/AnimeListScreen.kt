@@ -2,24 +2,32 @@ package com.example.animeapp.screens.anime
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun AnimeListScreen(animeListViewModel: AnimeListViewModel){
+fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
+    val animeList by viewModel.animeList.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val hasNextPage by viewModel.hasNextPage.collectAsState()
 
-    val animeList = animeListViewModel.animeList.collectAsState().value
-
-    animeList?.data?.let { animeItems ->
         LazyColumn {
-            items(animeItems) { anime ->
-                Text(
-                    text = "${anime.id} - ${anime.title}"
-                )
+            items(animeList) { anime ->
+                Text(text = "${anime.id} - ${anime.title}")
+            }
+            if (hasNextPage && !isLoading) {
+                item {
+                    LaunchedEffect(Unit) {
+                        viewModel.loadMoreAnime()
+                    }
+                }
             }
         }
-    } ?: run {
-        Text("Det laster, vent litt")
+
     }
-}
+
