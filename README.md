@@ -2,9 +2,4 @@
 
 **Deltakere i eksamen:**
 
-Michael
-
-Alexander
-
-Kenneth
 
