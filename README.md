@@ -2,4 +2,3 @@
 
 **Deltakere i eksamen:**
 
-
