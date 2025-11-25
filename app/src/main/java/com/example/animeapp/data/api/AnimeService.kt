@@ -18,8 +18,8 @@ interface AnimeService {
     @GET("anime")
     suspend fun getAnimeList(
         @Query("page") page: Int = 1,
-        // @Query("q") query: String? = null,
-        // @Query("order_by") orderBy: String? = null,
-        // @Query("sort") sort: String? = "desc"
+        @Query("q") query: String? = null,
+        @Query("order_by") orderBy: String? = null,
+        @Query("sort") sort: String? = "desc"
     ): Response<AnimeListResponse>
 }
