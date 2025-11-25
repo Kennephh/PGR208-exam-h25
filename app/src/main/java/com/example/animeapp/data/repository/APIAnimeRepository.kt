@@ -45,7 +45,7 @@ object APIAnimeRepository {
         }
     }
 
-    suspend fun getAnimeList(): List<Anime?>? {
+    suspend fun getAnimeList(): AnimeListResponse? {
         try {
             val response = _animeService.getAnimeList()
             return if (response.isSuccessful){

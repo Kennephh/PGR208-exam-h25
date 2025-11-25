@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AnimeListViewModel : ViewModel() {
-    private val _animeList = MutableStateFlow<List<Anime?>>(emptyList())
+    private val _animeList = MutableStateFlow<List<AnimeListResponse?>>(emptyList())
     val animeList = _animeList.asStateFlow()
 
 
