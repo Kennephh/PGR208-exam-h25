@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import com.example.animeapp.data.api.Anime
 
 @Composable
-fun AnimeItem(anime : Anime){
+fun AnimeItem(anime: Anime?){
     Column() {
         Text(
             text = "id: " + anime.id.toString()

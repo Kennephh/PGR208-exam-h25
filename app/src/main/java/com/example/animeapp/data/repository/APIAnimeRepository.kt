@@ -45,28 +45,17 @@ object APIAnimeRepository {
         }
     }
 
-    suspend fun getAnimeList(
-        page: Int = 1,
-        query: String? = null,
-        orderBy : String? = null,
-        sort : String? = "desc"
-    ): AnimeListResponse?{
+    suspend fun getAnimeList(): List<Anime?>? {
         try {
-            val response = _animeService.getAnimeList(
-                page = page,
-                query = query,
-                orderBy = orderBy,
-                sort = sort
-            )
-        return if (response.isSuccessful){
-            response.body()
-        } else{
-            return null
-        }
-
+            val response = _animeService.getAnimeList()
+            return if (response.isSuccessful){
+                response.body()
+            } else {
+                return emptyList()
+            }
         }catch (e: Exception){
             Log.d("Catch getAnimeList", e.message.toString())
-            return null
+            return emptyList()
         }
     }
 

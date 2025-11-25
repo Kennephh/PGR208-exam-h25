@@ -21,5 +21,5 @@ interface AnimeService {
         @Query("q") query: String? = null,
         @Query("order_by") orderBy: String? = null,
         @Query("sort") sort: String? = "desc"
-    ): Response<AnimeListResponse>
+    ): Response<List<Anime?>>
 }
