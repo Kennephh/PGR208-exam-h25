@@ -24,7 +24,7 @@ fun AnimeListScreen(animeListViewModel: AnimeListViewModel){
             }
         }
     } ?: run {
-        Text("Det laster")
+        Text("Det laster, vent litt")
     }
 
 }
