@@ -9,7 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.animeapp.screens.animeSearch.AnimeItem
+import com.example.animeapp.screens.animesearch.AnimeItem
 
 @Composable
 fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
