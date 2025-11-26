@@ -16,7 +16,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.compose.rememberNavController
 import com.example.animeapp.screens.anime.AnimeListViewModel
-import com.example.animeapp.screens.animeSearch.AnimeSearchViewModel
+import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -24,7 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.animeapp.screens.anime.AnimeListScreen
-import com.example.animeapp.screens.animeSearch.AnimeSearchScreen
+import com.example.animeapp.screens.animesearch.AnimeSearchScreen
 import com.example.animeapp.screens.home.HomeScreen
 import com.example.animeapp.screens.home.HomeViewModel
 
@@ -73,7 +73,7 @@ fun AppNavigation(
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Face,
-                            contentDescription = "Annsikt ikon"
+                            contentDescription = "Ansikt ikon"
                         )
                     }
                 )// AnimeList end
@@ -88,7 +88,7 @@ fun AppNavigation(
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Hjem-skjerm ikon"
+                            contentDescription = "Søk-skjerm ikon"
                         )
                     }
                 )// AnimeSearch end

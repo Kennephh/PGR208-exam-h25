@@ -1,8 +1,7 @@
-package com.example.animeapp.screens.animeSearch
+package com.example.animeapp.screens.animesearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.animeapp.data.api.Anime
 import com.example.animeapp.data.repository.APIAnimeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
