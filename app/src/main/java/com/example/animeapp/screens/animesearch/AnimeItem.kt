@@ -1,4 +1,4 @@
-package com.example.animeapp.screens.animeSearch
+package com.example.animeapp.screens.animesearch
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
