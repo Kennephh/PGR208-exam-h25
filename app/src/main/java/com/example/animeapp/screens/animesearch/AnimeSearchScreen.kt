@@ -13,11 +13,9 @@ import androidx.compose.runtime.setValue
 
 @Composable
 fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
-    var id by remember {
-        mutableStateOf<String>("")
-    }
-
-    val anime = animeSearchViewModel.anime.collectAsState()
+    var id by remember {mutableStateOf<String>("")}
+    val anime by animeSearchViewModel.anime.collectAsState()
+    var lastSearchId by remember { mutableStateOf<Int?>(null) }
 
 
     Column() {
@@ -31,13 +29,18 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 val idParsed = id.toIntOrNull()
                 if (idParsed != null) {
                     animeSearchViewModel.setAnimeById(idParsed)
+                    lastSearchId = idParsed
                 }
             }
         ) {
-            Text("Søk etter anime")
+            Text("Search to show Anime")
         }
-        anime.value?.let {
-            AnimeItem(it)
-        } ?: Text("Søk for å vise anime")
+        //
+        anime?.let { AnimeItem(it) }
+            ?: run {
+                if(lastSearchId != null){
+                    Text("Anime with id $lastSearchId can not be found")
+                } else Text("Search to show Anime")
+            }
     }
 }

@@ -5,7 +5,8 @@ data class Anime(
     // Benytte Serialized name da man ikke skal benytte understrek i variabler som ikke er privat
     @SerializedName("mal_id")
     val id : Int?,
-    val title : String?
+    val title : String?,
+    val images : Images
 )
 
 data class AnimeData(
@@ -17,7 +18,7 @@ data class AnimeListResponse(
     val pagination : Pagination?
 )
 
-// SerialzedName da de ikke er private verdier så kan ikke bruke underscore
+// SerializedName da de ikke er private verdier så kan ikke bruke underscore
 data class Pagination(
     @SerializedName("last_visible_page")
     val lastVisiblePage : Int,
@@ -30,6 +31,14 @@ data class Pagination(
     val items : Items?
 )
 
+data class Images(
+    val jpg : Jpg
+)
+
+data class Jpg(
+    @SerializedName("large_image_url")
+    val largeImageUrl : String?
+)
 data class Items(
     val count : Int,
     val total : Int,
