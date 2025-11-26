@@ -73,7 +73,7 @@ fun AppNavigation(
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Face,
-                            contentDescription = "Annsikt ikon"
+                            contentDescription = "Ansikt ikon"
                         )
                     }
                 )// AnimeList end
@@ -88,7 +88,7 @@ fun AppNavigation(
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Hjem-skjerm ikon"
+                            contentDescription = "Søk-skjerm ikon"
                         )
                     }
                 )// AnimeSearch end
