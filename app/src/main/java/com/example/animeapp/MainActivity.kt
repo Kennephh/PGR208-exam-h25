@@ -14,15 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.animeapp.navigation.AppNavigation
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animeSearch.AnimeSearchViewModel
 import com.example.animeapp.screens.animeSearch.AnimeSearchScreen
+import com.example.animeapp.screens.home.HomeViewModel
 import com.example.animeapp.ui.theme.AnimeAPPTheme
 
 class MainActivity : ComponentActivity() {
 
+    private val _homeViewModel : HomeViewModel by viewModels()
+
     private val _animeSearchViewModel : AnimeSearchViewModel by viewModels()
+
     private val _animeListViewModel : AnimeListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +35,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AnimeAPPTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(modifier = Modifier.padding(innerPadding)) {
-                        // AnimeSearchScreen(_animeSearchViewModel)
-                        AnimeListScreen(_animeListViewModel)
-                    }
-                }
+                AppNavigation(
+                    _homeViewModel,
+                    _animeListViewModel,
+                    _animeSearchViewModel
+                )
             }
         }
     }

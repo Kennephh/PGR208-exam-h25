@@ -1,7 +1,10 @@
 package com.example.animeapp.navigation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -17,11 +20,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Icon
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.animeapp.screens.anime.AnimeListScreen
+import com.example.animeapp.screens.animeSearch.AnimeSearchScreen
+import com.example.animeapp.screens.home.HomeScreen
+import com.example.animeapp.screens.home.HomeViewModel
+
 
 @Composable
 fun AppNavigation(
-    //homeViewModel : HomeViewModel,
+    homeViewModel : HomeViewModel,
     animeListViewModel: AnimeListViewModel,
     animeSearchViewModel: AnimeSearchViewModel
 ) {
@@ -51,10 +60,65 @@ fun AppNavigation(
                             contentDescription = "Hjem-skjerm ikon"
                         )
                     }
-                )
+                )// Home end
+
+                NavigationBarItem(
+                    selected = activeItem == 1,
+                    onClick = {
+                        activeItem = 1
+                        navController.navigate(NavRoutes.AnimeListRoute)
+                    },
+                    label = { Text("List") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Face,
+                            contentDescription = "Annsikt ikon"
+                        )
+                    }
+                )// AnimeList end
+
+                NavigationBarItem(
+                    selected = activeItem == 2,
+                    onClick = {
+                        activeItem = 2
+                        navController.navigate(NavRoutes.AnimeSearchRoute)
+                    },
+                    label = { Text("Søk") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = "Hjem-skjerm ikon"
+                        )
+                    }
+                )// AnimeSearch end
+            }// NavigationBar end
+
+        }
+    ) { innerpadding ->
+        Column(
+            modifier = Modifier.padding(innerpadding)
+        ) {
+            NavHost(
+                navController = navController,
+                startDestination = NavRoutes.HomeRoute
+            ) {
+                composable<NavRoutes.HomeRoute> {
+                    HomeScreen(
+                        homeViewModel
+                    )
+                }
+                composable<NavRoutes.AnimeListRoute> {
+                    AnimeListScreen(
+                        animeListViewModel
+                    )
+                }
+                composable<NavRoutes.AnimeSearchRoute> {
+                    AnimeSearchScreen(
+                        animeSearchViewModel
+                    )
+                }
             }
         }
-    ) {
 
     }
 
