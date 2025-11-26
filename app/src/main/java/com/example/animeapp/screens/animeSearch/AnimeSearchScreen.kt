@@ -12,12 +12,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
 @Composable
-fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel){
+fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
     var id by remember {
         mutableStateOf<String>("")
     }
 
     val anime = animeSearchViewModel.anime.collectAsState()
+
 
     Column() {
         TextField(
@@ -32,9 +33,11 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel){
                     animeSearchViewModel.setAnimeById(idParsed)
                 }
             }
-        ) { "Søk" }
-        anime.value?.let {
-            AnimeItem(it)
-        } ?: Text("Søk for å vise anime")
+        ) {
+            Text("Søk")
+            anime.value?.let {
+                AnimeItem(it)
+            } ?: Text("Søk for å vise anime")
+        }
     }
 }
