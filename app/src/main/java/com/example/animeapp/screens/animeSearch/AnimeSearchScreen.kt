@@ -34,10 +34,10 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 }
             }
         ) {
-            Text("Søk")
-            anime.value?.let {
-                AnimeItem(it)
-            } ?: Text("Søk for å vise anime")
+            Text("Søk etter anime")
         }
+        anime.value?.let {
+            AnimeItem(it)
+        } ?: Text("Søk for å vise anime")
     }
 }
