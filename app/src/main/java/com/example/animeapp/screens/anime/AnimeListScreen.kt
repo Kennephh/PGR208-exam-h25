@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.animeapp.screens.animeSearch.AnimeItem
 
 @Composable
 fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
@@ -18,7 +19,7 @@ fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
 
         LazyColumn {
             items(animeList) { anime ->
-                Text(text = "${anime.id} - ${anime.title}")
+                AnimeItem(anime)
             }
             if (hasNextPage && !isLoading) {
                 item {
