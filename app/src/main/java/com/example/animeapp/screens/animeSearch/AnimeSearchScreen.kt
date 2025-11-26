@@ -35,6 +35,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
         ) {
             Text("Search to show Anime")
         }
+        //
         anime?.let { AnimeItem(it) }
             ?: run {
                 if(lastSearchId != null){
