@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -86,11 +87,12 @@ fun AppNavigation(
                     label = { Text("Søk") },
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.Home,
+                            imageVector = Icons.Default.Search,
                             contentDescription = "Hjem-skjerm ikon"
                         )
                     }
                 )// AnimeSearch end
+
             }// NavigationBar end
 
         }
