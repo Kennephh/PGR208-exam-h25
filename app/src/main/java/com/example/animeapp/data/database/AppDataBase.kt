@@ -1,3 +1,15 @@
 package com.example.animeapp.data.database
 
-abstract class AppDataBase()
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.example.animeapp.data.api.Anime
+
+@Database(
+    entities = [Anime::class],
+    version = 1,
+    exportSchema = false
+)
+
+abstract class AppDataBase : RoomDatabase() {
+    abstract fun animeDao() : AnimeDao
+}
