@@ -16,8 +16,7 @@ fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
     val isLoading by viewModel.isLoading.collectAsState()
     val hasNextPage by viewModel.hasNextPage.collectAsState()
 
-        LazyColumn {
-            items(animeList) { anime ->
+        LazyColumn {items(animeList) { anime ->
                 Text(text = "${anime.id} - ${anime.title}")
             }
             if (hasNextPage && !isLoading) {
