@@ -18,7 +18,7 @@ class AnimeListViewModel : ViewModel() {
     private val _hasNextPage = MutableStateFlow(true)
     val hasNextPage = _hasNextPage.asStateFlow()
 
-    private var currentPage = 1
+    private var _currentPage = 1
 
     init {
         loadMoreAnime()}
@@ -27,14 +27,14 @@ class AnimeListViewModel : ViewModel() {
         if(_isLoading.value || !_hasNextPage.value ) return
         viewModelScope.launch {
             _isLoading.value = true
-            val result = APIAnimeRepository.getAnimeList(page = currentPage)
+            val result = APIAnimeRepository.getAnimeList(page = _currentPage)
             val newAnime = result?.data.orEmpty()
 
-            _animeList.value = if (currentPage == 1) newAnime else _animeList.value + newAnime
+            _animeList.value = if (_currentPage == 1) newAnime else _animeList.value + newAnime
 
             _hasNextPage.value = result?.pagination?.hasNextPage == true
 
-            currentPage++
+            _currentPage++
 
             _isLoading.value = false
         }
