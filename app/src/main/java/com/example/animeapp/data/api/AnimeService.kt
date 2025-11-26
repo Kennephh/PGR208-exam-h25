@@ -5,7 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-// Sørget for å importere retrofit2 sin respons, ikke okhttp3
 interface AnimeService {
     // Hent en anime etter ide
     @GET("anime/{id}/full")
