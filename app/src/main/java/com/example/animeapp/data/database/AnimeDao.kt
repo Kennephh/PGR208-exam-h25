@@ -16,7 +16,7 @@ interface AnimeDao {
     suspend fun getAnimeById(id: Int) : UserCreatedAnime?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNewAnime(animeList: List<UserCreatedAnime>)
+    suspend fun insertNewAnime(animeList: UserCreatedAnime)
 
     @Delete
     suspend fun deleteAnime(anime: UserCreatedAnime) : Int
