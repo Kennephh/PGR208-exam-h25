@@ -27,7 +27,7 @@ object APIAnimeRepository {
             GsonConverterFactory.create()
         ).build()
 
-    // Retrofit lager en en client av animeservice, som kan brukes til å kjøre http kall
+    // Retrofit lager en en klasse av animeservice, som kan brukes til å kjøre http kall
     private val _animeService = _retrofit.create(AnimeService::class.java)
 
     // Vi bruker AnimeService sin metode og sammenligner id som ble sendt med id i API, hvis det finnes så viser vi respons
