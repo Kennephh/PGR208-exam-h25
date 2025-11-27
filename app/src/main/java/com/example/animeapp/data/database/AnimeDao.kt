@@ -6,23 +6,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.animeapp.data.api.Anime
 
 @Dao
 interface AnimeDao {
     @Query("SELECT * FROM UserCreatedAnime")
-    suspend fun getAllAnime() : List<Anime>
+    suspend fun getAllAnime() : List<UserCreatedAnime>
 
     @Query("SELECT * FROM UserCreatedAnime WHERE id = :id")
-    suspend fun getAnimeById(id: Int) : Anime?
+    suspend fun getAnimeById(id: Int) : UserCreatedAnime?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNewAnime(animeList: List<Anime>)
+    suspend fun insertNewAnime(animeList: List<UserCreatedAnime>)
 
     @Delete
-    suspend fun deleteAnime(anime: Anime) : Int
+    suspend fun deleteAnime(anime: UserCreatedAnime) : Int
 
     @Update
-    suspend fun updateAnime(anime: Anime) : Int
+    suspend fun updateAnime(anime: UserCreatedAnime) : Int
 
 }
