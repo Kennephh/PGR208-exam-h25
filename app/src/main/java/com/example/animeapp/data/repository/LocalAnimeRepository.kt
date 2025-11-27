@@ -2,7 +2,6 @@ package com.example.animeapp.data.repository
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.material3.Text
 import androidx.room.Room
 import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.UserCreatedAnime
@@ -29,11 +28,11 @@ object LocalAnimeRepository {
         }
     }
 
-    suspend fun insertUserCreatedAnime(anime : UserCreatedAnime) {
-        try {
+    suspend fun insertUserCreatedAnime(anime : UserCreatedAnime) : Long {
+        return try {
             _animeDao.insertNewAnime(anime)
         } catch (e: Exception) {
-
+            -1L
         }
     }
 }
