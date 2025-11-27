@@ -2,9 +2,6 @@ package com.example.animeapp.screens.animecreate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.animeapp.data.database.AnimeDao
-import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.UserCreatedAnime
 import com.example.animeapp.data.repository.LocalAnimeRepository
 import kotlinx.coroutines.Dispatchers
