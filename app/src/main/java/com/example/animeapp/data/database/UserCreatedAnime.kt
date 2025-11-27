@@ -14,7 +14,6 @@ data class UserCreatedAnime(
      @Embedded
     val genre : Genre
 )
-// lager denne data klassen da genre på api-et inneholdt objekt
 data class Genre(
     val id : Int,
     val name : String
