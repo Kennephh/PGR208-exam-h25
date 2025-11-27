@@ -15,6 +15,6 @@ data class UserCreatedAnime(
     val genre : Genre
 )
 data class Genre(
-    val id : Int,
-    val name : String
+    val genreId : Int,
+    val genreName : String
 )
