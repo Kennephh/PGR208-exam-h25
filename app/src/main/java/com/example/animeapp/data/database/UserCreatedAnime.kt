@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 //Dette er hva brukeren bruker for å lagre sine egen anime lokalt // Tabellen
 @Entity
 data class UserCreatedAnime(
-    // autogenerer en id
     @PrimaryKey(autoGenerate = true) val id : Int,
     val name : String,
     // Room støtter ikke å lagre et helt objekt i en kolonne, dette falter det ut automatisk
