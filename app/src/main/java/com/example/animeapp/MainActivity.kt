@@ -12,16 +12,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.animeapp.navigation.AppNavigation
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
+import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
 import com.example.animeapp.screens.home.HomeViewModel
 import com.example.animeapp.ui.theme.AnimeAPPTheme
 
 class MainActivity : ComponentActivity() {
 
     private val _homeViewModel : HomeViewModel by viewModels()
-
     private val _animeSearchViewModel : AnimeSearchViewModel by viewModels()
-
     private val _animeListViewModel : AnimeListViewModel by viewModels()
+    private val _animeCreateViewModel : AnimeCreateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,8 @@ class MainActivity : ComponentActivity() {
                 AppNavigation(
                     _homeViewModel,
                     _animeListViewModel,
-                    _animeSearchViewModel
+                    _animeSearchViewModel,
+                    _animeCreateViewModel
                 )
             }
         }

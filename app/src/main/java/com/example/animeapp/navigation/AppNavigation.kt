@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
@@ -24,6 +25,8 @@ import androidx.compose.material3.Icon
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.animeapp.screens.anime.AnimeListScreen
+import com.example.animeapp.screens.animecreate.AnimeCreateScreen
+import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
 import com.example.animeapp.screens.home.HomeScreen
 import com.example.animeapp.screens.home.HomeViewModel
@@ -33,7 +36,8 @@ import com.example.animeapp.screens.home.HomeViewModel
 fun AppNavigation(
     homeViewModel : HomeViewModel,
     animeListViewModel: AnimeListViewModel,
-    animeSearchViewModel: AnimeSearchViewModel
+    animeSearchViewModel: AnimeSearchViewModel,
+    animeCreateViewModel: AnimeCreateViewModel
 ) {
 
     val navController = rememberNavController()
@@ -93,6 +97,21 @@ fun AppNavigation(
                     }
                 )// AnimeSearch end
 
+                NavigationBarItem(
+                    selected = activeItem == 2,
+                    onClick = {
+                        activeItem = 2
+                        navController.navigate(NavRoutes.AnimeCreateRoute)
+                    },
+                    label = { Text("Anime idéer") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Lag-skjerm ikon"
+                        )
+                    }
+                )// AnimeCreate end
+
             }// NavigationBar end
 
         }
@@ -117,6 +136,11 @@ fun AppNavigation(
                 composable<NavRoutes.AnimeSearchRoute> {
                     AnimeSearchScreen(
                         animeSearchViewModel
+                    )
+                }
+                composable<NavRoutes.AnimeCreateRoute>{
+                    AnimeCreateScreen(
+                        animeCreateViewModel
                     )
                 }
             }
