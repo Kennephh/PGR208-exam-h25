@@ -57,11 +57,9 @@ object APIAnimeRepository {
         } else{
             return null
         }
-
         }catch (e: Exception){
             Log.d("Catch getAnimeList", e.message.toString())
             return null
         }
     }
-
 }
