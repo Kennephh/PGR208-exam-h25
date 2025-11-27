@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.sql.SQLException
 
 
 class AnimeCreateViewModel : ViewModel() {
@@ -16,20 +17,19 @@ class AnimeCreateViewModel : ViewModel() {
 
     fun setUserCreatedAnime(){
         viewModelScope.launch(Dispatchers.IO){
-            _userCreatedAnimeList.value = LocalAnimeRepository.getAllUserCreatedAnime() // Ken lager denne i repo
+            _userCreatedAnimeList.value = LocalAnimeRepository.getAllUserCreatedAnime()
         }
     }
 
     fun insertUserCreatedAnime(anime : UserCreatedAnime){
         viewModelScope.launch(Dispatchers.IO){
-            val newAnimeId = LocalAnimeRepository.insertUserCreatedAnime(anime) // Ken funksjon i repo
+            val newAnimeId = LocalAnimeRepository.insertUserCreatedAnime(anime)
             if(newAnimeId != 1L){
                 val newAnime = anime.copy(id = newAnimeId.toInt())
                 _userCreatedAnimeList.value += newAnime
             } else{
-                null // Må legge til feilhåndtering
+                throw SQLException("Lagring av anime feilet.")
             }
-
         }
     }
 }

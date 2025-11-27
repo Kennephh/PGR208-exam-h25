@@ -27,5 +27,5 @@ fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
         }
     }
 
-    }
 
+}

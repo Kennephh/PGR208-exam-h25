@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun UserCreatedAnime(userCreatedAnime: UserCreatedAnime) {
+fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
 
     Column(
         modifier = Modifier
@@ -34,15 +34,15 @@ fun UserCreatedAnime(userCreatedAnime: UserCreatedAnime) {
                 )
         ) {
             Text(
-                text = "Id: " +userCreatedAnime.id
+                text = "Id: " + userCreatedAnime.id
             )
 
             Text(
-                text = "Navn: " +userCreatedAnime.name
+                text = "Navn: " + userCreatedAnime.name
             )
 
             Text(
-                text = "Genre: " +userCreatedAnime.genre
+                text = "Genre: " + userCreatedAnime.genre
             )
         }
     }
