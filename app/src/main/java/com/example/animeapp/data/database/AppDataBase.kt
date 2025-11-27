@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.animeapp.data.api.Anime
 
 @Database(
-    entities = [Anime::class],
+    entities = [UserCreatedAnime::class],
     version = 1,
     exportSchema = false
 )
