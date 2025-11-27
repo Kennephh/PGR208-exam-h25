@@ -98,9 +98,9 @@ fun AppNavigation(
                 )// AnimeSearch end
 
                 NavigationBarItem(
-                    selected = activeItem == 2,
+                    selected = activeItem == 3,
                     onClick = {
-                        activeItem = 2
+                        activeItem = 3
                         navController.navigate(NavRoutes.AnimeCreateRoute)
                     },
                     label = { Text("Anime idéer") },
