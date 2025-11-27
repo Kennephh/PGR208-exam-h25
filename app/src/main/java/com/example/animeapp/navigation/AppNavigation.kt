@@ -31,7 +31,6 @@ import com.example.animeapp.screens.animesearch.AnimeSearchScreen
 import com.example.animeapp.screens.home.HomeScreen
 import com.example.animeapp.screens.home.HomeViewModel
 
-
 @Composable
 fun AppNavigation(
     homeViewModel : HomeViewModel,
@@ -145,9 +144,7 @@ fun AppNavigation(
                 }
             }
         }
-
     }
-
 }
 
 
