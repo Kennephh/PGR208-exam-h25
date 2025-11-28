@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.room.Room
 import com.example.animeapp.data.database.AppDataBase
+import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.database.UserCreatedAnime
 
 object LocalAnimeRepository {
@@ -34,5 +35,20 @@ object LocalAnimeRepository {
         } catch (e: Exception) {
             -1L
         }
+    }
+
+    // Favourites
+    suspend fun addAnimeToFavourites(id : Int){
+        val favourite = FavouriteAnime(favouriteId = id)
+        try {
+            _animeDao.addFavourite(favourite)
+        } catch (e : Exception){
+            Log.d("addAnimeToFavourites, LocalRepo fail", e.toString())
+        }
+
+    }
+
+    suspend fun getFavouriteId(): List<Int>{
+        return _animeDao.
     }
 }
