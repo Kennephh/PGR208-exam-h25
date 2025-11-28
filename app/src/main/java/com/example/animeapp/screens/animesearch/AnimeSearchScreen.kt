@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.animeapp.components.AnimeSearchCard
+import com.example.animeapp.components.AnimeDetailsItem
 
 
 @Composable
@@ -42,10 +42,10 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 }
             }
         ) {
-            Text("Search to show Anime")
+            Text("Search")
         }
         //
-        anime?.let { AnimeSearchCard(it) }
+        anime?.let { AnimeDetailsItem(it) }
             ?: run {
                 if(lastSearchId != null){
                     Text("Anime with id $lastSearchId can not be found")
