@@ -121,7 +121,10 @@ fun AnimeItem(anime: Anime) {
                             overflow = TextOverflow.Ellipsis,
 
                         )
-                        HorizontalDivider()
+                        HorizontalDivider(
+                            thickness = 2.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
                         Text(
                             text = "Studio? Episodes?",
                             style = MaterialTheme.typography.bodySmall,
