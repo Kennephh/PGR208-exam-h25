@@ -3,7 +3,6 @@ package com.example.animeapp.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +16,7 @@ import coil.compose.AsyncImage
 import com.example.animeapp.data.api.Anime
 
 @Composable
-fun AnimeDetailCard(anime: Anime) {
+fun AnimeSearchCard(anime: Anime) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,6 +28,7 @@ fun AnimeDetailCard(anime: Anime) {
                 contentDescription = anime.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .border(
                         2.dp,
                         MaterialTheme.colorScheme.primary

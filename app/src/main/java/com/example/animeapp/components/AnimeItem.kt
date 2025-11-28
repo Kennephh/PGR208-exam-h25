@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -56,11 +58,12 @@ import com.example.animeapp.data.api.Anime
 @Composable
 fun AnimeItem(anime: Anime) {
 
-    val cardShape = RectangleShape
     val cardHeight = 80.dp
+    val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
+    val borderThickness = 2.dp
 
     ElevatedCard(
-        shape = cardShape,
+        shape = leftShape,
         modifier = Modifier
             .padding(all = 4.dp)
 
@@ -70,7 +73,7 @@ fun AnimeItem(anime: Anime) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            // Start Box-1
+            // Start Box-1 (Image-box)
             Box(
 
             ){
@@ -80,23 +83,31 @@ fun AnimeItem(anime: Anime) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(cardHeight)
+                        .clip(leftShape)
                         .border(
-                            2.dp,
+                            borderThickness,
                             MaterialTheme.colorScheme.primary,
-                            shape = cardShape
+                            leftShape
                         )
                 )
 
                 Text(
                     text = "${anime.id}",
                     style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
+                        .padding(4.dp)
+                        .sizeIn(20.dp)
+                        .background(
+                            MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+                            RoundedCornerShape(8.dp)
+                        )
                         .padding(2.dp)
-                        .background(MaterialTheme.colorScheme.surface)
                 )
             } // End Box-1
 
-            // Start Box-2
+            // Start Box-2 (Title, info and fav-btn)
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -122,7 +133,7 @@ fun AnimeItem(anime: Anime) {
 
                         )
                         HorizontalDivider(
-                            thickness = 2.dp,
+                            thickness = borderThickness,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
