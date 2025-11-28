@@ -16,9 +16,22 @@ class AnimeSearchViewModel : ViewModel(){
     //anime er stateFlow av _anime fordi
     val anime = _anime.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     fun setAnimeById (id : Int){
         viewModelScope.launch {
-            _anime.value = APIAnimeRepository.getAnimeById(id)
+
+            _isLoading.value = true
+            _anime.value = null
+
+            try {
+                _anime.value = APIAnimeRepository.getAnimeById(id)
+            } catch (e: Exception) {
+                _anime.value = null
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
