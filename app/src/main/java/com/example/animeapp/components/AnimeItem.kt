@@ -145,7 +145,7 @@ fun AnimeItem(anime: Anime) {
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Fav icon",
-                            tint = Color(205,0,0)
+                            tint = Color(207,0,0)
                         )
                     }
 
