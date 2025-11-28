@@ -47,7 +47,7 @@ fun AnimeDetailsItem(
         ) {
 
             Box(
-                contentAlignment = Alignment.TopCenter
+
             ){
                 AsyncImage(
                     model = anime.images.jpg.largeImageUrl,
@@ -83,6 +83,7 @@ fun AnimeDetailsItem(
             FlowRow(
                 //horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
+                    .padding(bottom = 16.dp)
                     .fillMaxWidth()
             ) {
                 Text(
@@ -132,19 +133,22 @@ fun AnimeDetailsItem(
 
             }
 
+
+
             Text(
                 text = "Synopsis",
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(start = 8.dp, top = 8.dp)
-                    .fillMaxWidth()
+                    .padding(start = 8.dp, top = 0.dp)
 
             )
 
             HorizontalDivider(
                 thickness = borderThickness,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(start = 8.dp)
             )
 
             Text(
