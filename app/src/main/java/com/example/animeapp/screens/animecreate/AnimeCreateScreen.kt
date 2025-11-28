@@ -63,7 +63,7 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(4.dp)
+            .padding(8.dp)
     ) {
 
         // Title row start
