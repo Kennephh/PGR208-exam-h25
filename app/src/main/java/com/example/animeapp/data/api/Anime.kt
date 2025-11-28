@@ -18,7 +18,6 @@ data class AnimeListResponse(
     val pagination : Pagination?
 )
 
-// SerializedName da de ikke er private verdier så kan ikke bruke underscore
 data class Pagination(
     @SerializedName("last_visible_page")
     val lastVisiblePage : Int,

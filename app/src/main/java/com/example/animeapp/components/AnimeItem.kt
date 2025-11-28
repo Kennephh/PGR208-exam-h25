@@ -56,7 +56,10 @@ import coil.compose.AsyncImage
 import com.example.animeapp.data.api.Anime
 
 @Composable
-fun AnimeItem(anime: Anime) {
+fun AnimeItem(
+    anime: Anime,
+    showDetails: (() -> Unit) ? = null
+) {
 
     val cardHeight = 80.dp
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
