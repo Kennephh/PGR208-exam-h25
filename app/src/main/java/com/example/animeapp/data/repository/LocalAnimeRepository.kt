@@ -38,6 +38,7 @@ object LocalAnimeRepository {
     }
 
     // Favourites
+    // Legge til
     suspend fun addAnimeToFavourites(id : Int){
         val favourite = FavouriteAnime(favouriteId = id)
         try {
@@ -48,7 +49,14 @@ object LocalAnimeRepository {
 
     }
 
-    suspend fun getFavouriteId(): List<Int>{
-        return _animeDao.
+    suspend fun getAllFavouriteIds(): List<FavouriteAnime>{
+        try {
+            return _animeDao.getAllFavouriteIds()
+        }catch (e: Exception){
+            Log.d("getFavouriteId, LocalRepo dail", e.toString())
+            return emptyList()
+        }
     }
+
+    suspend fun isFavourite():
 }

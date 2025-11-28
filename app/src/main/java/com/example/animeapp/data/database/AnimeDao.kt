@@ -27,7 +27,7 @@ interface AnimeDao {
 
     // FAVOURITE ANIME QUERY
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavourite(anime : FavouriteAnime)
+    suspend fun addFavourite(animeList : FavouriteAnime) : Long
 
     @Delete
     suspend fun removeFavourite(anime: FavouriteAnime)

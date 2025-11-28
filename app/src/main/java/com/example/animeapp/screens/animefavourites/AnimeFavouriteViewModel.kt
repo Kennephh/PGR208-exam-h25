@@ -19,7 +19,7 @@ class AnimeFavouriteViewModel : ViewModel(){
 
     fun setAnimeById (id : Int){
         viewModelScope.launch {
-            _favouriteAnime.value = LocalAnimeRepository.
+            _favouriteAnime.value = LocalAnimeRepository.getFavouriteId()
         }
     }
 }
