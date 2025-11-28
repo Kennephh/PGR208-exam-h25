@@ -60,7 +60,7 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
 
             Button(
                 onClick = {
-                    if(newTitle.isNotEmpty() && genre.isNotEmpty()){
+                    if(newTitle.isNotBlank() && genre.isNotBlank()){
                         val newGenre = Genre(0,genre) // Alle har id: 0
                         val newAnime = UserCreatedAnime(name= newTitle, genre= newGenre)
                         animeCreateViewModel.insertUserCreatedAnime(newAnime)
