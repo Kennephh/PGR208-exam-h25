@@ -44,24 +44,30 @@ object LocalAnimeRepository {
 
     // Favourites
     // Legge til
-    suspend fun addAnimeToFavourites(id : Int){
-        val favourite = FavouriteAnime(favouriteId = id)
-        try {
-            _animeDao.addFavourite(favourite)
-        } catch (e : Exception){
-            Log.d("addAnimeToFavourites, LocalRepo fail", e.toString())
+    suspend fun addAnimeToFavourites(id: Int){
+            val favourite = FavouriteAnime(favouriteId = id)
+            try {
+                _animeDao.addFavourite(favourite)
+            } catch (e : Exception){
+                Log.d("addAnimeToFavourites, LocalRepo fail", e.toString())
+            }
         }
 
-    }
-
-    suspend fun getAllFavouriteIds(): List<FavouriteAnime>{
+    suspend fun getAllFavouriteIds(): List<Int>{
         try {
-            return _animeDao.getAllFavouriteIds()
+            return _animeDao.getAllFavouriteIds().map { it.favouriteId }
         }catch (e: Exception){
-            Log.d("getFavouriteId, LocalRepo dail", e.toString())
+            Log.d("getFavouriteId, LocalRepo fail", e.toString())
             return emptyList()
         }
     }
 
-    suspend fun isFavourite():
+    suspend fun isFavourite(id: Int): Boolean {
+        try {
+            return _animeDao.isFavourite(id) > 0
+        } catch (e: Exception) {
+            Log.d("isFavourite check, LocalRepo fail",e.toString())
+            return false
+        }
+    }
 }

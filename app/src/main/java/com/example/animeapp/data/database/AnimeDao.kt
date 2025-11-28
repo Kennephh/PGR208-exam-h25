@@ -37,6 +37,6 @@ interface AnimeDao {
     suspend fun getAllFavouriteIds(): List<FavouriteAnime>
 
     @Query("SELECT COUNT(*) FROM favourite_anime WHERE favouriteId = :id")
-    suspend fun isFavourite(id: Int) : Int
+    suspend fun isFavourite(id: Int) : Int // Returnerer int men blir brukt som boolean
 
 }

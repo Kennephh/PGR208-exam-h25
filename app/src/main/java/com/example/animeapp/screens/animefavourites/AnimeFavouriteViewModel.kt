@@ -1,5 +1,6 @@
 package com.example.animeapp.screens.animefavourites
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.api.Anime
@@ -12,14 +13,25 @@ import kotlinx.coroutines.launch
 
 class AnimeFavouriteViewModel : ViewModel(){
     // lager _anime som er en mutablestateflow av Anime
-    private val _favouriteAnime = MutableStateFlow<FavouriteAnime?>(null)
+    private val _favouriteAnime = MutableStateFlow<List<Anime>>(emptyList())
+    val favouriteAnime = _favouriteAnime.asStateFlow()
 
-    //anime er stateFlow av _anime fordi
-    val anime = _favouriteAnime.asStateFlow()
+    init {
+        loadFavourites()
+    }
 
-    fun setAnimeById (id : Int){
+    fun loadFavourites(){
         viewModelScope.launch {
-            _favouriteAnime.value = LocalAnimeRepository.getFavouriteId()
+            val favouriteIds = LocalAnimeRepository.getAllFavouriteIds()
+            val animeList = mutableListOf<Anime>()
+
+            for(id in favouriteIds){
+                val anime = APIAnimeRepository.getAnimeById(id)
+                anime?.let { animeList.add(it)}
+            }
+            _favouriteAnime.value = animeList
         }
     }
+
+
 }
