@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.database.UserCreatedAnime
+import java.sql.SQLException
 
 object LocalAnimeRepository {
 
@@ -23,8 +24,11 @@ object LocalAnimeRepository {
     suspend fun getAllUserCreatedAnime() : List<UserCreatedAnime> {
         try {
             return _animeDao.getAllAnime()
+        } catch (e: SQLException) {
+            Log.e("SQLException: getAllUserCreatedAnime i Repo", e.toString())
+            return emptyList()
         } catch (e: Exception) {
-            Log.d("getAllUserCreatedAnime func i LocalAnimeRepoCatch", e.toString())
+            Log.e("getAllUserCreatedAnime func i LocalAnimeRepoCatch", e.toString())
             return emptyList()
         }
     }
@@ -32,7 +36,8 @@ object LocalAnimeRepository {
     suspend fun insertUserCreatedAnime(anime : UserCreatedAnime) : Long {
         return try {
             _animeDao.insertNewAnime(anime)
-        } catch (e: Exception) {
+        } catch (e: SQLException) {
+            Log.e("SQLException: insertUserCreatedAnime i Repo", e.toString())
             -1L
         }
     }

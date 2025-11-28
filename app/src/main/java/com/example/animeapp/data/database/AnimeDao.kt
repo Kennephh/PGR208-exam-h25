@@ -15,6 +15,7 @@ interface AnimeDao {
     @Query("SELECT * FROM UserCreatedAnime WHERE id = :id")
     suspend fun getAnimeById(id: Int) : UserCreatedAnime?
 
+    // Legger til ny anime, og sletter rader der det er noe fra før
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewAnime(animeList: UserCreatedAnime) : Long
 
