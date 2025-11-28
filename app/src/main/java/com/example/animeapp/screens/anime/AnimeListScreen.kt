@@ -11,12 +11,13 @@ import com.example.animeapp.components.AnimeItem
 
 @Composable
 fun AnimeListScreen(viewModel: AnimeListViewModel = viewModel()){
+
     val animeList by viewModel.animeList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val hasNextPage by viewModel.hasNextPage.collectAsState()
 
     LazyColumn {items(animeList) { anime ->
-        AnimeItem(anime)
+            AnimeItem(anime)
         }
         if (hasNextPage && !isLoading) {
             item {
