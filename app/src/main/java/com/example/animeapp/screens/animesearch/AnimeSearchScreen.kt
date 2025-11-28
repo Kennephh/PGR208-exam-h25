@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.example.animeapp.components.AnimeItem
+import com.example.animeapp.components.AnimeSearchCard
 
 @Composable
 fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
@@ -37,7 +37,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             Text("Search to show Anime")
         }
         //
-        anime?.let { AnimeItem(it) }
+        anime?.let { AnimeSearchCard(it) }
             ?: run {
                 if(lastSearchId != null){
                     Text("Anime with id $lastSearchId can not be found")
