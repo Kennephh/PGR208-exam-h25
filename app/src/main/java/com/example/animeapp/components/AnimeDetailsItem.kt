@@ -50,6 +50,22 @@ fun AnimeDetailsItem(
                 .fillMaxSize()
         ) {
 
+            Text(
+                text = anime.title ?: "Unknown Title",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        MaterialTheme.colorScheme.primary,
+                        RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                    )
+                    .padding(start = 8.dp)
+            )
+
             Box(
 
             ){
@@ -63,24 +79,7 @@ fun AnimeDetailsItem(
                         .border(
                             borderThickness,
                             MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
                         )
-                )
-                Text(
-                    text = anime.title ?: "Unknown Title",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .fillMaxWidth()
-                        .background(
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
-                        )
-                        .padding(4.dp)
                 )
 
                 ElevatedButton(

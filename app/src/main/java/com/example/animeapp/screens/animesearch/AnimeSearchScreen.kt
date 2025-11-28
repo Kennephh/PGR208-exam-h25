@@ -58,6 +58,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             .fillMaxSize()
     ) {
 
+        // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -76,8 +77,9 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                     .padding(start = 8.dp)
                     .weight(1f)
             )
-        }
+        } // Title row end
 
+        // Search bar start
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -118,8 +120,9 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             ) {
                 Text("Search")
             }
-        }
+        } // Search bar end
 
+        // Result box start
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -156,10 +159,8 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                         color = Color.Gray
                     )
                 }
-
             }
-
-        }
+        } // Result box end
 
     } // End main
 }
