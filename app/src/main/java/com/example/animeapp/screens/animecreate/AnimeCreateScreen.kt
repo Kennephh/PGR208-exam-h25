@@ -24,9 +24,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.animeapp.components.UserCreatedAnimeItem
 import com.example.animeapp.data.database.Genre
 import com.example.animeapp.data.database.UserCreatedAnime
 
@@ -39,22 +42,28 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
         animeCreateViewModel.setUserCreatedAnime()
     }
 
-    var newTitle by remember {
+    var title by remember {
         mutableStateOf("")
     }
     var genre by remember {
         mutableStateOf("")
     }
+    var synopsis by remember {
+        mutableStateOf("")
+    }
 
     fun addNewAnime(){
-        if(newTitle.isNotBlank() && genre.isNotBlank()){
-            val trimmedTitle = newTitle.trim()
+        if(title.isNotBlank() && genre.isNotBlank() && synopsis.isNotBlank()){
+            val trimmedTitle = title.trim()
             val trimmedGenre = genre.trim()
+            val trimmedSynopsis = synopsis.trim()
 
             val newGenre = Genre(0,trimmedGenre) // Alle har id: 0
             val newAnime = UserCreatedAnime(name= trimmedTitle, genre= newGenre)
+
             animeCreateViewModel.insertUserCreatedAnime(newAnime)
-            newTitle = ""
+
+            title = ""
             genre = ""
         }
     }
@@ -94,11 +103,11 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
             modifier = Modifier
                 .padding(start = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()
-        ) {
+        ){
 
             OutlinedTextField(
-                value = newTitle,
-                onValueChange = {newTitle = it},
+                value = title,
+                onValueChange = {title = it},
                 label = {
                     Text(
                         text = "Enter title..",
@@ -113,7 +122,9 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 ),
                 keyboardActions = KeyboardActions(
                     onSearch = {}
-                )
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
             )
 
             OutlinedTextField(
@@ -133,7 +144,31 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 ),
                 keyboardActions = KeyboardActions(
                     onSearch = {}
-                )
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            OutlinedTextField(
+                value = synopsis,
+                onValueChange = {synopsis = it},
+                label = {
+                    Text(
+                        text = "Enter synopsis..",
+                        style = MaterialTheme.typography.labelMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = {}
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
             )
 
             Button(
@@ -143,9 +178,30 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
             }
         } // Search bar end
 
-        LazyColumn() {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "Animes you have added",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(top = 32.dp)
+            )
+        }
+
+        LazyColumn(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             items(animeList) { anime ->
-                Text("Title: ${anime.name}, Genre: ${anime.genre}")
+                UserCreatedAnimeItem(anime)
             }
         }
     } // Main end
