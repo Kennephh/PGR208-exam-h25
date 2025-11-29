@@ -17,8 +17,5 @@ sealed class NavRoutes {
     object AnimeFavouriteRoute : NavRoutes()
 
     @Serializable
-    data class AnimeDetailsRoute(
-        val animeId: Int
-    ) : NavRoutes()
-
+    object AnimeDetailRoute : NavRoutes()
 }

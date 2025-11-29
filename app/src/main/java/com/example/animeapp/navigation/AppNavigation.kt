@@ -8,24 +8,24 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.navigation.compose.rememberNavController
-import com.example.animeapp.screens.anime.AnimeListViewModel
-import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.material3.Icon
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
+import androidx.navigation.compose.rememberNavController
+import com.example.animeapp.components.AnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
+import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
 import com.example.animeapp.screens.animedetails.AnimeDetailsScreen
@@ -33,6 +33,9 @@ import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
+import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
+import com.example.animeapp.screens.home.HomeScreen
+import com.example.animeapp.screens.home.HomeViewModel
 
 @Composable
 fun AppNavigation(
@@ -44,11 +47,7 @@ fun AppNavigation(
 ) {
 
     val navController = rememberNavController()
-    val navHostController = rememberNavController()
-
-    var activeItem by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var activeItem by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(
         modifier = Modifier
@@ -127,7 +126,11 @@ fun AppNavigation(
             ) {
                 composable<NavRoutes.AnimeListRoute> {
                     AnimeListScreen(
-                        animeListViewModel
+                        animeListViewModel,
+                        onAnimeClick = { animeId ->
+                            animeListViewModel.onAnimeSelected(animeId)
+                            navController.navigate(NavRoutes.AnimeDetailRoute)
+                        }
                     )
                 }
                 composable<NavRoutes.AnimeSearchRoute> {
@@ -145,14 +148,21 @@ fun AppNavigation(
                         animeFavouriteViewModel
                     )
                 }
-                composable<NavRoutes.AnimeDetailsRoute> {backStackEntry ->
-                    val args = backStackEntry.toRoute<NavRoutes.AnimeDetailsRoute>()
-                    AnimeDetailsScreen(
-                        animeDetailsViewModel,
-                        navController,
-                        args.animeId
-                    )
+                composable<NavRoutes.AnimeDetailRoute>{
+                    val selectedId = animeListViewModel.selectedAnimeId
+                    val animeList by animeListViewModel.animeList.collectAsState()
+                    val selectedAnime = animeList.find {it.id == selectedId}
 
+                    if (selectedAnime != null){
+                        AnimeDetailsItem(
+                            selectedAnime,
+                            goBack = {
+                                navController.popBackStack()
+                            }
+                        )
+                    } else {
+                        Text("Could not find anime")
+                    }
                 }
             }
         }

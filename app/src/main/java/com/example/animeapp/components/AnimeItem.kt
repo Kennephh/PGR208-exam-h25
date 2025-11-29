@@ -1,6 +1,5 @@
 package com.example.animeapp.components
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -33,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 fun AnimeItem(
     anime: Anime,
     showDetails: (() -> Unit) ? = null
-) {
+){
 
     val cardHeight = 80.dp
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
@@ -66,8 +66,10 @@ fun AnimeItem(
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
-            .padding(all = 4.dp)
-
+            .padding(all = 4.dp),
+        onClick = {
+            showDetails?.invoke()
+        }
     ) {
         // Start main row
         Row(

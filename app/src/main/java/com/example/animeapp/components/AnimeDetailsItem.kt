@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,11 +15,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +45,7 @@ fun AnimeDetailsItem(
 
     ElevatedCard(
         modifier = Modifier
+            .padding(top = 16.dp)
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
@@ -50,21 +54,44 @@ fun AnimeDetailsItem(
                 .fillMaxSize()
         ) {
 
-            Text(
-                text = anime.title ?: "Unknown Title",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        MaterialTheme.colorScheme.primary,
-                        RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                        color = MaterialTheme.colorScheme.primary
                     )
-                    .padding(start = 8.dp)
-            )
+            ) {
+
+                if (goBack != null){
+                    IconButton(
+                        onClick = goBack
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back!",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }
+
+                Text(
+                    text = anime.title ?: "Unknown Title",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(
+                            start = if (goBack != null) 0.dp else 8.dp,
+                            top = 8.dp,
+                            bottom = 8.dp,
+                            end = 8.dp
+                        )
+                )
+            }
 
             Box(
 
@@ -152,8 +179,6 @@ fun AnimeDetailsItem(
                 )
 
             }
-
-
 
             Text(
                 text = "Synopsis",
