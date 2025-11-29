@@ -180,8 +180,6 @@ fun AnimeDetailsItem(
 
             }
 
-
-
             Text(
                 text = "Synopsis",
                 style = MaterialTheme.typography.bodySmall,
