@@ -53,9 +53,15 @@ data class Studio(
 
 data class Aired(
     val prop: DateProp?,
+    val string: String?
 )
 
 data class DateProp(
+    val from: DateInfo?,
+    val to: DateInfo?
+)
+
+data class DateInfo(
     val day: Int?,
     val month: Int?,
     val year: Int?
