@@ -19,14 +19,18 @@ import androidx.compose.ui.unit.dp
 import com.example.animeapp.data.database.UserCreatedAnime
 
 @Composable
-fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
+fun UserCreatedAnimeItem(
+    userCreatedAnime: UserCreatedAnime,
+    showDetails: (() -> Unit) ? = null
+) {
 
-    val cardHeight = 24.dp
+    val cardHeight = 42.dp
     val borderThickness = 2.dp
 
     OutlinedCard(
-        modifier = Modifier
-            .padding(8.dp)
+        onClick = {
+            showDetails?.invoke()
+        }
     ){
 
         Row(
