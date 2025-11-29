@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface AnimeService {
-    @GET("anime/{id}/full")
+    @GET("anime/{id}")
     suspend fun getAnimeById(
         @Path("id") id : Int
     ) : Response<AnimeData>

@@ -70,7 +70,7 @@ fun AnimeDetailsItem(
 
             ){
                 AsyncImage(
-                    model = anime.images.jpg.largeImageUrl,
+                    model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -107,7 +107,7 @@ fun AnimeDetailsItem(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Studio: Masters of Anime",
+                    text = "Studio: ${anime.studios?.firstOrNull()?.name}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -122,7 +122,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Episodes: 74",
+                    text = "Episodes: ${anime.episodes}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -137,7 +137,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Year: 1996",
+                    text = "Year: ${anime.aired?.prop?.year.toString()}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
