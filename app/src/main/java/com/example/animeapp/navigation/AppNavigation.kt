@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Icon
@@ -29,6 +28,8 @@ import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animedetails.AnimeDetailsScreen
+import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
@@ -38,11 +39,11 @@ import com.example.animeapp.screens.home.HomeViewModel
 
 @Composable
 fun AppNavigation(
-    homeViewModel : HomeViewModel,
     animeListViewModel: AnimeListViewModel,
     animeSearchViewModel: AnimeSearchViewModel,
     animeCreateViewModel: AnimeCreateViewModel,
-    animeFavouriteViewModel: AnimeFavouriteViewModel
+    animeFavouriteViewModel: AnimeFavouriteViewModel,
+    animeDetailsViewModel: AnimeDetailsViewModel
 ) {
 
     val navController = rememberNavController()
@@ -53,20 +54,6 @@ fun AppNavigation(
             .fillMaxSize(),
         bottomBar = {
             NavigationBar() {
-                NavigationBarItem(
-                    selected = activeItem == 0,
-                    onClick = {
-                        activeItem = 0
-                        navController.navigate(NavRoutes.HomeRoute)
-                    },
-                    label = { Text("Home") },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = "Hjem-skjerm ikon"
-                        )
-                    }
-                )// Home end
 
                 NavigationBarItem(
                     selected = activeItem == 1,
@@ -125,11 +112,9 @@ fun AppNavigation(
                             contentDescription = "Lik-skjerm ikon"
                         )
                     }
+                )// AnimeFavourite end
 
-
-                )
             }// NavigationBar end
-
         }
     ) { innerpadding ->
         Column(
@@ -137,13 +122,8 @@ fun AppNavigation(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.HomeRoute
+                startDestination = NavRoutes.AnimeListRoute
             ) {
-                composable<NavRoutes.HomeRoute> {
-                    HomeScreen(
-                        homeViewModel
-                    )
-                }
                 composable<NavRoutes.AnimeListRoute> {
                     AnimeListScreen(
                         animeListViewModel,
