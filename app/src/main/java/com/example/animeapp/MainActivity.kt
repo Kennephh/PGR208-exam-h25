@@ -14,6 +14,7 @@ import com.example.animeapp.navigation.AppNavigation
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.ui.theme.AnimeAPPTheme
 
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     private val _animeListViewModel : AnimeListViewModel by viewModels()
     private val _animeCreateViewModel : AnimeCreateViewModel by viewModels()
     private val _animeFavouriteViewModel : AnimeFavouriteViewModel by viewModels()
+    private val _animeDetailsViewModel : AnimeDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     _animeSearchViewModel,
                     _animeCreateViewModel,
                     _animeFavouriteViewModel,
+                    _animeDetailsViewModel
                 )
             }
         }
