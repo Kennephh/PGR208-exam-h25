@@ -46,7 +46,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun AnimeItem(
     anime: Anime,
-    showDetails: (() -> Unit) ? = null
+    onRemoveFavourite: (Anime) -> Unit = {}
+    // showDetails: (() -> Unit) ? = null,
+
 ) {
 
     val cardHeight = 80.dp
@@ -153,10 +155,14 @@ fun AnimeItem(
                         onClick = {
                             anime.id?.let { id ->
                                 scope.launch {
-                                    if (isFavourite){
+                                    val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
+                                    if (isCurrentlyFavourite){
                                         LocalAnimeRepository.removeFromFavourites(id)
+                                        onRemoveFavourite(anime)
+                                        isFavourite = false
                                     } else {
                                         LocalAnimeRepository.addAnimeToFavourites(id)
+                                        isFavourite = true
                                     }
                             }
 
