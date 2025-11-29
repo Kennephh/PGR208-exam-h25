@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
                     _animeSearchViewModel,
                     _animeCreateViewModel,
                     _animeFavouriteViewModel,
-                    _animeDetailsViewModel
                 )
             }
         }
