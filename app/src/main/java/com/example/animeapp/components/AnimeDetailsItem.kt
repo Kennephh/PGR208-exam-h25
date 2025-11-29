@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -38,6 +39,8 @@ import com.example.animeapp.data.api.Anime
 @Composable
 fun AnimeDetailsItem(
     anime: Anime,
+    isFavourite: Boolean,
+    onFavouriteClick: () -> Unit,
     goBack: ( () -> Unit ) ? = null
 ) {
 
@@ -115,12 +118,10 @@ fun AnimeDetailsItem(
                         .width(40.dp)
                         .align(Alignment.BottomEnd),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = {
-
-                    }
+                    onClick = { onFavouriteClick() }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Fav icon",
                         tint = Color(205,0,0)
                     )
@@ -197,20 +198,7 @@ fun AnimeDetailsItem(
             )
 
             Text(
-                text = "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question.",
+                text = anime.synopsis.toString(),
                 style = MaterialTheme.typography.bodySmall,
 
                 overflow = TextOverflow.Ellipsis,

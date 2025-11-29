@@ -21,15 +21,18 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.animeapp.components.AnimeDetailsItem
 import com.example.animeapp.components.UsercreatedAnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animedetails.AnimeDetailsScreen
 import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
@@ -151,21 +154,17 @@ fun AppNavigation(
                         animeFavouriteViewModel
                     )
                 }
-                composable<NavRoutes.AnimeDetailRoute>{
-                    val selectedId = animeListViewModel.selectedAnimeId
-                    val animeList by animeListViewModel.animeList.collectAsState()
-                    val selectedAnime = animeList.find {it.id == selectedId}
+                composable<NavRoutes.AnimeDetailRoute>{ backStackEntry ->
+                    val animeId = animeListViewModel.selectedAnimeId
 
-                    if (selectedAnime != null){
-                        AnimeDetailsItem(
-                            selectedAnime,
-                            goBack = {
-                                navController.popBackStack()
-                            }
+                    if (animeId != null) {
+                        AnimeDetailsScreen(
+                            animeId = animeId,
+                            onBackClick = { navController.popBackStack() },
+                            viewModel = animeDetailsViewModel
                         )
-                    } else {
-                        Text("Could not find anime")
                     }
+
                 }
                 composable<NavRoutes.UserAnimeDetailRoute>{
                     val selectedAnime = animeCreateViewModel.selectedUserAnime

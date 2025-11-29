@@ -140,7 +140,7 @@ fun AnimeItem(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "Studio? Episodes?",
+                            text = "Episodes: ${anime.episodes.toString()}",
                             style = MaterialTheme.typography.bodySmall,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,

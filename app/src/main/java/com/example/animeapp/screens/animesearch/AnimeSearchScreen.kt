@@ -40,6 +40,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
     var lastSearchId by remember { mutableStateOf<Int?>(null) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val isLoading by animeSearchViewModel.isLoading.collectAsState()
+    val isFavourite by animeSearchViewModel.isFavourite.collectAsState()
 
     fun searchAnimeById(){
         val idParsed = id.toIntOrNull()
@@ -54,7 +55,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(8.dp)
+            .padding(4.dp)
             .fillMaxSize()
     ) {
 
@@ -140,7 +141,12 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                       modifier = Modifier
                           .align(Alignment.TopCenter)
                   ){
-                      AnimeDetailsItem(anime!!)
+                      AnimeDetailsItem(
+                          anime = anime!!,
+                          isFavourite = isFavourite,
+                          onFavouriteClick = {animeSearchViewModel.toggleFavourite()},
+                          goBack = null
+                      )
                   }
                 }
 
