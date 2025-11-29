@@ -25,9 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material3.Icon
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animedetails.AnimeDetailsScreen
+import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
@@ -40,7 +43,8 @@ fun AppNavigation(
     animeListViewModel: AnimeListViewModel,
     animeSearchViewModel: AnimeSearchViewModel,
     animeCreateViewModel: AnimeCreateViewModel,
-    animeFavouriteViewModel: AnimeFavouriteViewModel
+    animeFavouriteViewModel: AnimeFavouriteViewModel,
+    animeDetailsViewModel: AnimeDetailsViewModel
 ) {
 
     val navController = rememberNavController()
@@ -163,6 +167,15 @@ fun AppNavigation(
                     AnimeFavouriteScreen(
                         animeFavouriteViewModel
                     )
+                }
+                composable<NavRoutes.AnimeDetailsRoute> {backStackEntry ->
+                    val args = backStackEntry.toRoute<NavRoutes.AnimeDetailsRoute>()
+                    AnimeDetailsScreen(
+                        animeDetailsViewModel,
+                        navController,
+                        args.animeId
+                    )
+
                 }
             }
         }
