@@ -23,8 +23,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.animeapp.components.AnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
@@ -44,11 +46,7 @@ fun AppNavigation(
 ) {
 
     val navController = rememberNavController()
-    val navHostController = rememberNavController()
-
-    var activeItem by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var activeItem by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(
         modifier = Modifier
@@ -115,9 +113,9 @@ fun AppNavigation(
                     }
                 )// AnimeCreate end
                 NavigationBarItem(
-                    selected = activeItem == 3,
+                    selected = activeItem == 4,
                     onClick = {
-                        activeItem = 3
+                        activeItem = 4
                         navController.navigate(NavRoutes.AnimeFavouriteRoute)
                     },
                     label = { Text("Anime favoritter") },
@@ -148,7 +146,11 @@ fun AppNavigation(
                 }
                 composable<NavRoutes.AnimeListRoute> {
                     AnimeListScreen(
-                        animeListViewModel
+                        animeListViewModel,
+                        onAnimeClick = { animeId ->
+                            animeListViewModel.onAnimeSelected(animeId)
+                            navController.navigate(NavRoutes.AnimeDetailRoute)
+                        }
                     )
                 }
                 composable<NavRoutes.AnimeSearchRoute> {
@@ -165,6 +167,22 @@ fun AppNavigation(
                     AnimeFavouriteScreen(
                         animeFavouriteViewModel
                     )
+                }
+                composable<NavRoutes.AnimeDetailRoute>{
+                    val selectedId = animeListViewModel.selectedAnimeId
+                    val animeList by animeListViewModel.animeList.collectAsState()
+                    val selectedAnime = animeList.find {it.id == selectedId}
+
+                    if (selectedAnime != null){
+                        AnimeDetailsItem(
+                            selectedAnime,
+                            goBack = {
+                                navController.popBackStack()
+                            }
+                        )
+                    } else {
+                        Text("Could not find anime")
+                    }
                 }
             }
         }

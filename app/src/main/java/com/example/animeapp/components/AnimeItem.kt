@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 fun AnimeItem(
     anime: Anime,
     showDetails: (() -> Unit) ? = null
-) {
+){
 
     val cardHeight = 80.dp
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
@@ -66,8 +66,10 @@ fun AnimeItem(
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
-            .padding(all = 4.dp)
-
+            .padding(all = 4.dp),
+        onClick = {
+            showDetails?.invoke()
+        }
     ) {
         // Start main row
         Row(
