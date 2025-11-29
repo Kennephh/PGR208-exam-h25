@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -27,6 +28,8 @@ import androidx.navigation.compose.composable
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
+import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
 import com.example.animeapp.screens.home.HomeScreen
 import com.example.animeapp.screens.home.HomeViewModel
@@ -36,7 +39,8 @@ fun AppNavigation(
     homeViewModel : HomeViewModel,
     animeListViewModel: AnimeListViewModel,
     animeSearchViewModel: AnimeSearchViewModel,
-    animeCreateViewModel: AnimeCreateViewModel
+    animeCreateViewModel: AnimeCreateViewModel,
+    animeFavouriteViewModel: AnimeFavouriteViewModel
 ) {
 
     val navController = rememberNavController()
@@ -110,7 +114,22 @@ fun AppNavigation(
                         )
                     }
                 )// AnimeCreate end
+                NavigationBarItem(
+                    selected = activeItem == 3,
+                    onClick = {
+                        activeItem = 3
+                        navController.navigate(NavRoutes.AnimeFavouriteRoute)
+                    },
+                    label = { Text("Anime favoritter") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.ThumbUp,
+                            contentDescription = "Lik-skjerm ikon"
+                        )
+                    }
 
+
+                )
             }// NavigationBar end
 
         }
@@ -140,6 +159,11 @@ fun AppNavigation(
                 composable<NavRoutes.AnimeCreateRoute>{
                     AnimeCreateScreen(
                         animeCreateViewModel
+                    )
+                }
+                composable<NavRoutes.AnimeFavouriteRoute>{
+                    AnimeFavouriteScreen(
+                        animeFavouriteViewModel
                     )
                 }
             }
