@@ -2,12 +2,10 @@ package com.example.animeapp.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -53,6 +50,22 @@ fun AnimeDetailsItem(
                 .fillMaxSize()
         ) {
 
+            Text(
+                text = anime.title ?: "Unknown Title",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        MaterialTheme.colorScheme.primary,
+                        RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                    )
+                    .padding(start = 8.dp)
+            )
+
             Box(
 
             ){
@@ -66,24 +79,7 @@ fun AnimeDetailsItem(
                         .border(
                             borderThickness,
                             MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
                         )
-                )
-                Text(
-                    text = anime.title ?: "Unknown Title",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .fillMaxWidth()
-                        .background(
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
-                        )
-                        .padding(4.dp)
                 )
 
                 ElevatedButton(
