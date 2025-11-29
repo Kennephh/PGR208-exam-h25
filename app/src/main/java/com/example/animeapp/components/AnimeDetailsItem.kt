@@ -2,7 +2,6 @@ package com.example.animeapp.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -16,12 +15,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,6 +45,7 @@ fun AnimeDetailsItem(
 
     ElevatedCard(
         modifier = Modifier
+            .padding(top = 16.dp)
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
@@ -53,22 +54,27 @@ fun AnimeDetailsItem(
                 .fillMaxSize()
         ) {
 
-            Box(
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = MaterialTheme.colorScheme.primary
+                    )
+            ) {
 
-            ){
-                AsyncImage(
-                    model = anime.images.jpg.largeImageUrl,
-                    contentDescription = anime.title,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp)
-                        .border(
-                            borderThickness,
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                if (goBack != null){
+                    IconButton(
+                        onClick = goBack
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back!",
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
-                )
+                    }
+                }
+
                 Text(
                     text = anime.title ?: "Unknown Title",
                     style = MaterialTheme.typography.titleMedium,
@@ -77,13 +83,30 @@ fun AnimeDetailsItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                        .padding(2.dp)
-                        .fillMaxWidth()
-                        .background(
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                        .weight(1f)
+                        .padding(
+                            start = if (goBack != null) 0.dp else 8.dp,
+                            top = 8.dp,
+                            bottom = 8.dp,
+                            end = 8.dp
                         )
-                        .padding(4.dp)
+                )
+            }
+
+            Box(
+
+            ){
+                AsyncImage(
+                    model = anime.images?.jpg?.largeImageUrl,
+                    contentDescription = anime.title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .border(
+                            borderThickness,
+                            MaterialTheme.colorScheme.primary,
+                        )
                 )
 
                 ElevatedButton(
@@ -111,7 +134,7 @@ fun AnimeDetailsItem(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Studio: Masters of Anime",
+                    text = "Studio: ${anime.studios?.firstOrNull()?.name}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -126,7 +149,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Episodes: 74",
+                    text = "Episodes: ${anime.episodes}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -141,7 +164,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Year: 1996",
+                    text = "Year: ${anime.aired?.prop?.year.toString()}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -156,8 +179,6 @@ fun AnimeDetailsItem(
                 )
 
             }
-
-
 
             Text(
                 text = "Synopsis",

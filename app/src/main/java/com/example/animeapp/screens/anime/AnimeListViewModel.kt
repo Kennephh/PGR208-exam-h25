@@ -18,10 +18,18 @@ class AnimeListViewModel : ViewModel() {
     private val _hasNextPage = MutableStateFlow(true)
     val hasNextPage = _hasNextPage.asStateFlow()
 
+    var selectedAnimeId: Int? = null
+        private set
+
     private var _currentPage = 1
 
     init {
-        loadMoreAnime()}
+        loadMoreAnime()
+    }
+
+    fun onAnimeSelected(id: Int) {
+        selectedAnimeId = id
+    }
 
     fun loadMoreAnime(){
         if(_isLoading.value || !_hasNextPage.value ) return

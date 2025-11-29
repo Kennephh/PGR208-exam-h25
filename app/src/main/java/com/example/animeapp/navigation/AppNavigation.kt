@@ -6,69 +6,52 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.navigation.compose.rememberNavController
-import com.example.animeapp.screens.anime.AnimeListViewModel
-import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.material3.Icon
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.animeapp.components.AnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
+import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
+import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
-import com.example.animeapp.screens.home.HomeScreen
-import com.example.animeapp.screens.home.HomeViewModel
+import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 
 @Composable
 fun AppNavigation(
-    homeViewModel : HomeViewModel,
     animeListViewModel: AnimeListViewModel,
     animeSearchViewModel: AnimeSearchViewModel,
     animeCreateViewModel: AnimeCreateViewModel,
-    animeFavouriteViewModel: AnimeFavouriteViewModel
+    animeFavouriteViewModel: AnimeFavouriteViewModel,
+    animeDetailsViewModel: AnimeDetailsViewModel
 ) {
 
     val navController = rememberNavController()
-    val navHostController = rememberNavController()
-
-    var activeItem by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var activeItem by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = {
             NavigationBar() {
-                NavigationBarItem(
-                    selected = activeItem == 0,
-                    onClick = {
-                        activeItem = 0
-                        navController.navigate(NavRoutes.HomeRoute)
-                    },
-                    label = { Text("Home") },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = "Hjem-skjerm ikon"
-                        )
-                    }
-                )// Home end
 
                 NavigationBarItem(
                     selected = activeItem == 1,
@@ -76,7 +59,7 @@ fun AppNavigation(
                         activeItem = 1
                         navController.navigate(NavRoutes.AnimeListRoute)
                     },
-                    label = { Text("List") },
+                    label = { Text("Anime") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Face,
@@ -91,7 +74,7 @@ fun AppNavigation(
                         activeItem = 2
                         navController.navigate(NavRoutes.AnimeSearchRoute)
                     },
-                    label = { Text("Søk") },
+                    label = { Text("Search") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -106,7 +89,7 @@ fun AppNavigation(
                         activeItem = 3
                         navController.navigate(NavRoutes.AnimeCreateRoute)
                     },
-                    label = { Text("Anime idéer") },
+                    label = { Text("Ideas") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Add,
@@ -115,23 +98,21 @@ fun AppNavigation(
                     }
                 )// AnimeCreate end
                 NavigationBarItem(
-                    selected = activeItem == 3,
+                    selected = activeItem == 4,
                     onClick = {
-                        activeItem = 3
+                        activeItem = 4
                         navController.navigate(NavRoutes.AnimeFavouriteRoute)
                     },
-                    label = { Text("Anime favoritter") },
+                    label = { Text("Favorites") },
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.ThumbUp,
+                            imageVector = Icons.Default.Favorite,
                             contentDescription = "Lik-skjerm ikon"
                         )
                     }
+                )// AnimeFavourite end
 
-
-                )
             }// NavigationBar end
-
         }
     ) { innerpadding ->
         Column(
@@ -139,16 +120,15 @@ fun AppNavigation(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.HomeRoute
+                startDestination = NavRoutes.AnimeListRoute
             ) {
-                composable<NavRoutes.HomeRoute> {
-                    HomeScreen(
-                        homeViewModel
-                    )
-                }
                 composable<NavRoutes.AnimeListRoute> {
                     AnimeListScreen(
-                        animeListViewModel
+                        animeListViewModel,
+                        onAnimeClick = { animeId ->
+                            animeListViewModel.onAnimeSelected(animeId)
+                            navController.navigate(NavRoutes.AnimeDetailRoute)
+                        }
                     )
                 }
                 composable<NavRoutes.AnimeSearchRoute> {
@@ -165,6 +145,22 @@ fun AppNavigation(
                     AnimeFavouriteScreen(
                         animeFavouriteViewModel
                     )
+                }
+                composable<NavRoutes.AnimeDetailRoute>{
+                    val selectedId = animeListViewModel.selectedAnimeId
+                    val animeList by animeListViewModel.animeList.collectAsState()
+                    val selectedAnime = animeList.find {it.id == selectedId}
+
+                    if (selectedAnime != null){
+                        AnimeDetailsItem(
+                            selectedAnime,
+                            goBack = {
+                                navController.popBackStack()
+                            }
+                        )
+                    } else {
+                        Text("Could not find anime")
+                    }
                 }
             }
         }
