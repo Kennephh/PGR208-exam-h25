@@ -15,21 +15,17 @@ object LocalAnimeRepository {
         ?: throw IllegalStateException("Database not init")
     fun initializeDatabase(context: Context) {
         if(_appdatabase != null) return
-
         _appdatabase = Room.databaseBuilder(
             context = context.applicationContext,
             klass = AppDataBase::class.java,
             name = "anime-database"
-        )   .fallbackToDestructiveMigration()
+        )   .fallbackToDestructiveMigration()// Sletter den gamle databasen med oppdatering av database versjons-nummer
             .build()
     }
 
     suspend fun getAllUserCreatedAnime() : List<UserCreatedAnime> {
         try {
             return _animeDao.getAllAnime()
-        } catch (e: SQLException) {
-            Log.e("SQLException: getAllUserCreatedAnime i Repo", e.toString())
-            return emptyList()
         } catch (e: Exception) {
             Log.e("getAllUserCreatedAnime func i LocalAnimeRepoCatch", e.toString())
             return emptyList()
@@ -39,8 +35,8 @@ object LocalAnimeRepository {
     suspend fun insertUserCreatedAnime(anime : UserCreatedAnime) : Long {
         return try {
             _animeDao.insertNewAnime(anime)
-        } catch (e: SQLException) {
-            Log.e("SQLException: insertUserCreatedAnime i Repo", e.toString())
+        } catch (e: Exception) {
+            Log.e("Exception: insertUserCreatedAnime i Repo", e.toString())
             -1L
         }
     }

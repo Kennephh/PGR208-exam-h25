@@ -184,11 +184,10 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
             }
 
             Text(
-                text = "Synopsis",
+                text = anime.synopsis ?: "No synopsis available.",
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
