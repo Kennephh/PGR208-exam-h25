@@ -157,15 +157,15 @@ fun AnimeItem(
                         onClick = {
                             anime.id?.let { id ->
                                 scope.launch {
-                                    val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
-                                    if (isCurrentlyFavourite){
-                                        LocalAnimeRepository.removeFromFavourites(id)
-                                        onRemoveFavourite(anime)
-                                        isFavourite = false
-                                    } else {
-                                        LocalAnimeRepository.addAnimeToFavourites(id)
-                                        isFavourite = true
-                                    }
+                                val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
+                                if (isCurrentlyFavourite){
+                                    LocalAnimeRepository.removeFromFavourites(id)
+                                    onRemoveFavourite(anime)
+                                    isFavourite = false
+                                } else {
+                                    LocalAnimeRepository.addAnimeToFavourites(id)
+                                    isFavourite = true
+                                }
                             }
 
                             }
@@ -177,9 +177,7 @@ fun AnimeItem(
                             tint = Color(205,0,0)
                         )
                     }
-
                 }
-
 
             } // End Box-2
         } // End main row
