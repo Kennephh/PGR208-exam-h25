@@ -164,7 +164,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Year: ${anime.aired?.prop?.year.toString()}",
+                    text = "Year: ${anime.aired?.prop?.from?.year}",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
