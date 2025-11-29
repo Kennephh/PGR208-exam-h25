@@ -44,7 +44,9 @@ fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .weight(1f)
             )
 
             VerticalDivider(
@@ -58,7 +60,9 @@ fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
                 text = userCreatedAnime.genre.genreName,
                 style = MaterialTheme.typography.bodySmall,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .weight(0.5f)
             )
 
         }
