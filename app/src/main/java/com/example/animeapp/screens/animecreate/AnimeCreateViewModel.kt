@@ -1,5 +1,6 @@
 package com.example.animeapp.screens.animecreate
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.database.UserCreatedAnime
@@ -28,6 +29,7 @@ class AnimeCreateViewModel : ViewModel() {
                 val newAnime = anime.copy(id = newAnimeId.toInt())
                 _userCreatedAnimeList.value += newAnime
             } else{
+                Log.e("AnimeCreate", "Failed to save anime")
                 throw SQLException("Lagring av anime feilet.")
             }
         }

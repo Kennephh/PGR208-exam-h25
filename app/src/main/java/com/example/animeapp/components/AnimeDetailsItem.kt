@@ -116,7 +116,6 @@ fun AnimeDetailsItem(
                         .align(Alignment.BottomEnd),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {
-
                     }
                 ) {
                     Icon(
@@ -177,11 +176,10 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
             }
 
             Text(
-                text = "Synopsis",
+                text = anime.synopsis ?: "No synopsis available.",
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -195,30 +193,6 @@ fun AnimeDetailsItem(
                 modifier = Modifier
                     .padding(start = 8.dp)
             )
-
-            Text(
-                text = "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question.",
-                style = MaterialTheme.typography.bodySmall,
-
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            )
-
         }
     }
 }
