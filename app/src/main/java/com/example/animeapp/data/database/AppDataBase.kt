@@ -4,8 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [UserCreatedAnime::class],
-    version = 1,
+    entities = [
+        UserCreatedAnime::class,
+        FavouriteAnime::class
+               ],
+    version = 2,
     exportSchema = false
 )
 

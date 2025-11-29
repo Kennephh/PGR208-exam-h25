@@ -1,5 +1,6 @@
 package com.example.animeapp.components
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -23,10 +24,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +40,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.animeapp.data.api.Anime
+import com.example.animeapp.data.repository.LocalAnimeRepository
+import kotlinx.coroutines.launch
 
 @Composable
 fun AnimeItem(
@@ -45,13 +53,21 @@ fun AnimeItem(
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
+    // Favourite
+    var isFavourite by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = anime.id) {
+        anime.id?.let { id ->
+            isFavourite = LocalAnimeRepository.isFavourite(id)
+        }
+    }
+
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
-            .padding(all = 4.dp),
-        onClick = {
-            showDetails?.invoke()
-        }
+            .padding(all = 4.dp)
+
     ) {
         // Start main row
         Row(
@@ -135,7 +151,16 @@ fun AnimeItem(
                             .width(40.dp),
                         contentPadding = PaddingValues(0.dp),
                         onClick = {
+                            anime.id?.let { id ->
+                                scope.launch {
+                                    if (isFavourite){
+                                        LocalAnimeRepository.removeFromFavourites(id)
+                                    } else {
+                                        LocalAnimeRepository.addAnimeToFavourites(id)
+                                    }
+                            }
 
+                            }
                         }
                     ) {
                         Icon(

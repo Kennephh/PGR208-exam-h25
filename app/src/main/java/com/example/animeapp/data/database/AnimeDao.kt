@@ -25,4 +25,18 @@ interface AnimeDao {
     @Update
     suspend fun updateAnime(anime: UserCreatedAnime) : Int
 
+
+    // FAVOURITE ANIME QUERY
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavourite(anime: FavouriteAnime)
+
+    @Delete
+    suspend fun removeFavourite(anime: FavouriteAnime)
+
+    @Query("SELECT * FROM favourite_anime")
+    suspend fun getAllFavouriteIds(): List<FavouriteAnime>
+
+    @Query("SELECT COUNT(*) FROM favourite_anime WHERE favouriteId = :id")
+    suspend fun isFavourite(id: Int) : Int // Returnerer int men blir brukt som boolean
+
 }
