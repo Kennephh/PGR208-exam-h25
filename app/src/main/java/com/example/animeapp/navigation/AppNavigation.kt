@@ -28,14 +28,11 @@ import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
-import com.example.animeapp.screens.animedetails.AnimeDetailsScreen
 import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteScreen
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
 import com.example.animeapp.screens.animesearch.AnimeSearchScreen
 import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
-import com.example.animeapp.screens.home.HomeScreen
-import com.example.animeapp.screens.home.HomeViewModel
 
 @Composable
 fun AppNavigation(
