@@ -73,4 +73,13 @@ object LocalAnimeRepository {
             return false
         }
     }
+
+    suspend fun removeFromFavourites(id : Int){
+        val favourite = FavouriteAnime(favouriteId = id)
+        try {
+            _animeDao.removeFavourite(favourite)
+        } catch (e: Exception){
+            Log.d("removeFromFavourites", e.toString())
+        }
+    }
 }

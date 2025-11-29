@@ -154,7 +154,7 @@ fun AnimeItem(
                             anime.id?.let { id ->
                                 scope.launch {
                                     if (isFavourite){
-                                        // FJERNE FUNKSJON
+                                        LocalAnimeRepository.removeFromFavourites(id)
                                     } else {
                                         LocalAnimeRepository.addAnimeToFavourites(id)
                                     }
