@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.animeapp.components.UserCreatedAnimeItem
-import com.example.animeapp.data.database.Genre
 import com.example.animeapp.data.database.UserCreatedAnime
 
 @Composable
@@ -58,13 +57,18 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
             val trimmedGenre = genre.trim()
             val trimmedSynopsis = synopsis.trim()
 
-            val newGenre = Genre(0,trimmedGenre) // Alle har id: 0
-            val newAnime = UserCreatedAnime(name= trimmedTitle, genre= newGenre)
+            //val newGenre = Genre(0,trimmedGenre) // Alle har id: 0
+            val newAnime = UserCreatedAnime(
+                title = trimmedTitle,
+                genre = trimmedGenre,
+                synopsis = trimmedSynopsis
+            )
 
             animeCreateViewModel.insertUserCreatedAnime(newAnime)
 
             title = ""
             genre = ""
+            synopsis = ""
         }
     }
 

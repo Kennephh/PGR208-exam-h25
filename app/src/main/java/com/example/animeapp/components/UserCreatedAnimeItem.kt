@@ -39,7 +39,7 @@ fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
         ) {
 
             Text(
-                text = userCreatedAnime.name,
+                text = userCreatedAnime.title,
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
@@ -57,7 +57,7 @@ fun UserCreatedAnimeItem(userCreatedAnime: UserCreatedAnime) {
             )
 
             Text(
-                text = userCreatedAnime.genre.genreName,
+                text = userCreatedAnime.genre,
                 style = MaterialTheme.typography.bodySmall,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
