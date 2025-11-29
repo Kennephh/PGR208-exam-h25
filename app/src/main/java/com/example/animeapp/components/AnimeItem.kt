@@ -79,7 +79,7 @@ fun AnimeItem(
 
             ){
                 AsyncImage(
-                    model = anime.images.jpg.largeImageUrl,
+                    model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
