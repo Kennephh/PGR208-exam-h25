@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Icon
@@ -58,7 +59,7 @@ fun AppNavigation(
                         activeItem = 1
                         navController.navigate(NavRoutes.AnimeListRoute)
                     },
-                    label = { Text("List") },
+                    label = { Text("Anime") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Face,
@@ -73,7 +74,7 @@ fun AppNavigation(
                         activeItem = 2
                         navController.navigate(NavRoutes.AnimeSearchRoute)
                     },
-                    label = { Text("Søk") },
+                    label = { Text("Search") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -88,7 +89,7 @@ fun AppNavigation(
                         activeItem = 3
                         navController.navigate(NavRoutes.AnimeCreateRoute)
                     },
-                    label = { Text("Anime idéer") },
+                    label = { Text("Ideas") },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Add,
@@ -102,10 +103,10 @@ fun AppNavigation(
                         activeItem = 4
                         navController.navigate(NavRoutes.AnimeFavouriteRoute)
                     },
-                    label = { Text("Anime favoritter") },
+                    label = { Text("Favorites") },
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.ThumbUp,
+                            imageVector = Icons.Default.Favorite,
                             contentDescription = "Lik-skjerm ikon"
                         )
                     }
