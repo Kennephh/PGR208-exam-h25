@@ -7,17 +7,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -40,21 +40,27 @@ import com.example.animeapp.data.api.Anime
 @Composable
 fun AnimeDetailsItem(
     anime: Anime,
+    isFavourite: Boolean,
+    onFavouriteClick: () -> Unit,
     goBack: ( () -> Unit ) ? = null
 ) {
 
     val borderThickness = 2.dp
 
+    val year = anime.year
+        ?: anime.aired?.prop?.from?.year
+        ?: "Unknown"
+
     ElevatedCard(
         modifier = Modifier
             .padding(top = 16.dp)
             .fillMaxWidth()
-            .wrapContentHeight()
-            .verticalScroll(rememberScrollState())
+            .fillMaxHeight()
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
 
             Row(
@@ -118,11 +124,10 @@ fun AnimeDetailsItem(
                         .width(40.dp)
                         .align(Alignment.BottomEnd),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = {
-                    }
+                    onClick = { onFavouriteClick() }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Fav icon",
                         tint = Color(205,0,0)
                     )
@@ -166,7 +171,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Year: ${anime.aired?.prop?.from?.year}",
+                    text = "$year",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -196,6 +201,15 @@ fun AnimeDetailsItem(
                 modifier = Modifier
                     .padding(start = 8.dp)
             )
+
+            Text(
+                text = anime.synopsis.toString(),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+
         }
     }
 }

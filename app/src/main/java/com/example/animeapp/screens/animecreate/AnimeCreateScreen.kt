@@ -1,6 +1,5 @@
 package com.example.animeapp.screens.animecreate
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -91,8 +89,8 @@ fun AnimeCreateScreen(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Add new anime",
-                style = MaterialTheme.typography.titleSmall,
+                text = "Create new anime",
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -192,7 +190,7 @@ fun AnimeCreateScreen(
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Animes you have added",
+                text = "Animes you have created",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,

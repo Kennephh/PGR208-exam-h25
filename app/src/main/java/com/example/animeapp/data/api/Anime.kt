@@ -13,7 +13,8 @@ data class Anime(
     val score: Double?,
     val genres: List<Genre>?,
     val studios: List<Studio>?,
-    val aired: Aired?
+    val aired: Aired?,
+    val year: Int?
 )
 
 data class AnimeData(
@@ -52,8 +53,11 @@ data class Studio(
 )
 
 data class Aired(
-    val prop: DateProp?,
-    val string: String?
+    val prop: Prop?,
+)
+
+data class Prop(
+    val from: DateProp?
 )
 
 data class DateProp(
