@@ -46,11 +46,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun AnimeItem(
     anime: Anime,
-    onRemoveFavourite: (Anime) -> Unit = {}
-    // showDetails: (() -> Unit) ? = null,
-
-) {
+    onRemoveFavourite: (Anime) -> Unit = {},
     showDetails: (() -> Unit) ? = null
+
 ){
 
     val cardHeight = 80.dp
