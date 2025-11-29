@@ -6,19 +6,22 @@ import androidx.room.Room
 import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.database.UserCreatedAnime
-import java.sql.SQLException
+import android.database.SQLException
 
 object LocalAnimeRepository {
 
-    private lateinit var _appdatabase : AppDataBase
-    private val _animeDao by lazy { _appdatabase.animeDao() }
-
+    private var _appdatabase : AppDataBase? = null
+    private val _animeDao get() = _appdatabase?.animeDao()
+        ?: throw IllegalStateException("Database not init")
     fun initializeDatabase(context: Context) {
+        if(_appdatabase != null) return
+
         _appdatabase = Room.databaseBuilder(
-            context = context,
+            context = context.applicationContext,
             klass = AppDataBase::class.java,
             name = "anime-database"
-        ).build()
+        )   .fallbackToDestructiveMigration()
+            .build()
     }
 
     suspend fun getAllUserCreatedAnime() : List<UserCreatedAnime> {
