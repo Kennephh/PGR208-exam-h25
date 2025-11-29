@@ -24,7 +24,7 @@ class AnimeCreateViewModel : ViewModel() {
     fun insertUserCreatedAnime(anime : UserCreatedAnime){
         viewModelScope.launch(Dispatchers.IO){
             val newAnimeId = LocalAnimeRepository.insertUserCreatedAnime(anime)
-            if(newAnimeId != 1L){
+            if(newAnimeId != -1L){
                 val newAnime = anime.copy(id = newAnimeId.toInt())
                 _userCreatedAnimeList.value += newAnime
             } else{
