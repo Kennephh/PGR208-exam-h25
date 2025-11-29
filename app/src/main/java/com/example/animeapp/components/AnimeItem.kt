@@ -55,16 +55,12 @@ fun AnimeItem(
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
-    // Favourite
-    var isFavourite by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = anime.id) {
         anime.id?.let { id ->
-            isFavourite = LocalAnimeRepository.isFavourite(id)
         }
     }
-
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
@@ -80,7 +76,6 @@ fun AnimeItem(
         ) {
             // Start Box-1 (Image-box)
             Box(
-
             ){
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
@@ -95,7 +90,6 @@ fun AnimeItem(
                             leftShape
                         )
                 )
-
                 Text(
                     text = "${anime.id}",
                     style = MaterialTheme.typography.bodySmall,
@@ -148,7 +142,6 @@ fun AnimeItem(
                             overflow = TextOverflow.Ellipsis,
                         )
                     }
-
                     ElevatedButton(
                         modifier = Modifier
                             .padding(2.dp)
@@ -161,13 +154,10 @@ fun AnimeItem(
                                     if (isCurrentlyFavourite){
                                         LocalAnimeRepository.removeFromFavourites(id)
                                         onRemoveFavourite(anime)
-                                        isFavourite = false
                                     } else {
                                         LocalAnimeRepository.addAnimeToFavourites(id)
-                                        isFavourite = true
                                     }
                             }
-
                             }
                         }
                     ) {
@@ -177,10 +167,7 @@ fun AnimeItem(
                             tint = Color(205,0,0)
                         )
                     }
-
                 }
-
-
             } // End Box-2
         } // End main row
     }

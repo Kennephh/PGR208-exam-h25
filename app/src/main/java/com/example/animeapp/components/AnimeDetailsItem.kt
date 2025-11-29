@@ -25,6 +25,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,12 +40,26 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.animeapp.data.api.Anime
+import com.example.animeapp.data.repository.LocalAnimeRepository
+import kotlinx.coroutines.launch
 
 @Composable
 fun AnimeDetailsItem(
     anime: Anime,
+    onRemoveFavourite: (Anime) -> Unit = {},
     goBack: ( () -> Unit ) ? = null
+
 ) {
+
+    var isFavourite by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    // Sjekker status når komponenten først lastes
+    LaunchedEffect(key1 = anime.id) {
+        anime.id?.let {
+            isFavourite = LocalAnimeRepository.isFavourite(it)
+        }
+    }
 
     val borderThickness = 2.dp
 
@@ -116,8 +136,19 @@ fun AnimeDetailsItem(
                         .align(Alignment.BottomEnd),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {
+                        anime.id?.let { id ->
+                                scope.launch {
+                                    val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
+                                    if (isCurrentlyFavourite){
+                                        LocalAnimeRepository.removeFromFavourites(id)
+                                        onRemoveFavourite(anime)
+                                    } else {
+                                        LocalAnimeRepository.addAnimeToFavourites(id)
+                                    }
+                                }
+                            }
+                        }
 
-                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
