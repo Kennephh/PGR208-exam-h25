@@ -15,6 +15,13 @@ class AnimeCreateViewModel : ViewModel() {
     private val _userCreatedAnimeList = MutableStateFlow<List<UserCreatedAnime>>(emptyList())
     val userCreatedAnimeList = _userCreatedAnimeList.asStateFlow()
 
+    var selectedUserAnime : UserCreatedAnime? = null
+        private set
+
+    fun onUserAnimeSelected(anime: UserCreatedAnime){
+        selectedUserAnime = anime
+    }
+
     fun setUserCreatedAnime(){
         viewModelScope.launch(Dispatchers.IO){
             _userCreatedAnimeList.value = LocalAnimeRepository.getAllUserCreatedAnime()

@@ -84,7 +84,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()
         ) {
 

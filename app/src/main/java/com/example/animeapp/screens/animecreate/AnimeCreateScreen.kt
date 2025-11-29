@@ -1,5 +1,6 @@
 package com.example.animeapp.screens.animecreate
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -33,7 +35,10 @@ import com.example.animeapp.components.UserCreatedAnimeItem
 import com.example.animeapp.data.database.UserCreatedAnime
 
 @Composable
-fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
+fun AnimeCreateScreen(
+    animeCreateViewModel: AnimeCreateViewModel,
+    onAnimeClick: (UserCreatedAnime) -> Unit
+    ){
 
     val animeList by animeCreateViewModel.userCreatedAnimeList.collectAsState()
 
@@ -102,10 +107,8 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
 
         // Search bar start
         Column(
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()
         ){
 
@@ -205,7 +208,12 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 .fillMaxWidth()
         ) {
             items(animeList) { anime ->
-                UserCreatedAnimeItem(anime)
+                UserCreatedAnimeItem(
+                    userCreatedAnime = anime,
+                        showDetails = {
+                            onAnimeClick(anime)
+                        }
+                    )
             }
         }
     } // Main end
