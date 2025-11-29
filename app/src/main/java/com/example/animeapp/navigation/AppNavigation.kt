@@ -115,9 +115,9 @@ fun AppNavigation(
                     }
                 )// AnimeCreate end
                 NavigationBarItem(
-                    selected = activeItem == 3,
+                    selected = activeItem == 4,
                     onClick = {
-                        activeItem = 3
+                        activeItem = 4
                         navController.navigate(NavRoutes.AnimeFavouriteRoute)
                     },
                     label = { Text("Anime favoritter") },
@@ -127,11 +127,9 @@ fun AppNavigation(
                             contentDescription = "Lik-skjerm ikon"
                         )
                     }
+                )// AnimeFavourite end
 
-
-                )
             }// NavigationBar end
-
         }
     ) { innerpadding ->
         Column(
