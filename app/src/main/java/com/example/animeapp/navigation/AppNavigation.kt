@@ -40,6 +40,7 @@ fun AppNavigation(
     animeSearchViewModel: AnimeSearchViewModel,
     animeCreateViewModel: AnimeCreateViewModel,
     animeFavouriteViewModel: AnimeFavouriteViewModel,
+    animeDetailsViewModel: AnimeDetailsViewModel
 ) {
 
     val navController = rememberNavController()

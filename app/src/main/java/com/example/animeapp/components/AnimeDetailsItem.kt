@@ -186,15 +186,6 @@ fun AnimeDetailsItem(
                 )
             }
 
-            Text(
-                text = anime.synopsis ?: "No synopsis available.",
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 0.dp)
-
-            )
-
             HorizontalDivider(
                 thickness = borderThickness,
                 color = MaterialTheme.colorScheme.primary,
@@ -203,7 +194,7 @@ fun AnimeDetailsItem(
             )
 
             Text(
-                text = anime.synopsis.toString(),
+                text = anime.synopsis ?: "No synopsis available",
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -57,12 +57,7 @@ data class Aired(
 )
 
 data class Prop(
-    val from: DateProp?
-)
-
-data class DateProp(
-    val from: DateInfo?,
-    val to: DateInfo?
+    val from: DateInfo?
 )
 
 data class DateInfo(
