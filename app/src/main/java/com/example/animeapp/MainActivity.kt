@@ -16,12 +16,10 @@ import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
 import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
-import com.example.animeapp.screens.home.HomeViewModel
 import com.example.animeapp.ui.theme.AnimeAPPTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val _homeViewModel : HomeViewModel by viewModels()
     private val _animeSearchViewModel : AnimeSearchViewModel by viewModels()
     private val _animeListViewModel : AnimeListViewModel by viewModels()
     private val _animeCreateViewModel : AnimeCreateViewModel by viewModels()
@@ -37,7 +35,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AnimeAPPTheme {
                 AppNavigation(
-                    _homeViewModel,
                     _animeListViewModel,
                     _animeSearchViewModel,
                     _animeCreateViewModel,
