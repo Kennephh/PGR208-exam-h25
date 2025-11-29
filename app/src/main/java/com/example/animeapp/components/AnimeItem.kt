@@ -53,6 +53,10 @@ fun AnimeItem(
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
+    val year = anime.year
+        ?: anime.aired?.prop?.from?.year
+        ?: "Unknown"
+
     // Favourite
     var isFavourite by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -129,8 +133,12 @@ fun AnimeItem(
                             .padding(end = 8.dp)
                     ) {
                         Text(
+                            text = "$year",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                        Text(
                             text = anime.title ?: "Unknown Title",
-                            style = MaterialTheme.typography.titleSmall,
+                            style = MaterialTheme.typography.titleMedium,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
 
@@ -145,6 +153,7 @@ fun AnimeItem(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
+
                     }
 
                     ElevatedButton(
