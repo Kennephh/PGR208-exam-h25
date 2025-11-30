@@ -34,7 +34,7 @@ fun AnimeFavouriteScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(4.dp)
+            .padding(8.dp)
     ) {
 
         // Title row start

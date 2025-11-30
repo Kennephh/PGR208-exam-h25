@@ -140,7 +140,7 @@ fun AnimeDetailsItem(
                     Icon(
                         imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Fav icon",
-                        tint = Color(205,0,0)
+                        tint = if (isFavourite) Color(205,0,0) else MaterialTheme.colorScheme.secondary
                     )
                 }
             }
@@ -226,6 +226,27 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
+
+                // Genre
+                anime.genres?.forEach { genre ->
+
+                    val genreName = genre.name ?: return@forEach
+
+                    Text(
+                        text = genreName,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .padding(start = 8.dp, top = 8.dp)
+                            .background(
+                                MaterialTheme.colorScheme.tertiary,
+                                RoundedCornerShape(8.dp)
+                            )
+                            .padding(8.dp)
+                    )
+                }
 
             }
 

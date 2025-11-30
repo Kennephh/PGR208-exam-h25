@@ -184,36 +184,51 @@ fun AnimeCreateScreen(
             }
         } // Search bar end
 
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Animes you have created",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
+        if (animeList.isNotEmpty()) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(top = 32.dp)
-            )
-        }
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(16.dp, end = 16.dp, top = 32.dp, bottom = 8.dp)
+                ) {
+                    Text(
+                        text = "Animes you have created",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    )
+                    HorizontalDivider(
+                        thickness = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .weight(1f)
+                    )
+                }
+            }
 
-        LazyColumn(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            items(animeList) { anime ->
-                UserCreatedAnimeItem(
-                    userCreatedAnime = anime,
-                    showDetails = { onAnimeClick(anime) },
-                    onDeleteClick = {onDeleteClick(anime)}
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                items(animeList) { anime ->
+                    UserCreatedAnimeItem(
+                        userCreatedAnime = anime,
+                        showDetails = { onAnimeClick(anime) },
+                        onDeleteClick = {onDeleteClick(anime)}
 
-                )
+                    )
+                }
             }
         }
+
+
     } // Main end
 }
