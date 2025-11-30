@@ -146,7 +146,11 @@ fun AppNavigation(
                 }
                 composable<NavRoutes.AnimeFavouriteRoute>{
                     AnimeFavouriteScreen(
-                        animeFavouriteViewModel
+                        animeFavouriteViewModel,
+                        onAnimeclick = { animeId ->
+                            animeListViewModel.onAnimeSelected(animeId)
+                            navController.navigate(NavRoutes.AnimeDetailRoute)
+                        }
                     )
                 }
                 composable<NavRoutes.AnimeDetailRoute>{ backStackEntry ->

@@ -22,9 +22,14 @@ import com.example.animeapp.components.AnimeItem
 
 @Composable
 fun AnimeFavouriteScreen(
-    viewModel: AnimeFavouriteViewModel = viewModel()
+    viewModel: AnimeFavouriteViewModel = viewModel(),
+    onAnimeclick: (Int) -> Unit
 ){
     val favourites by viewModel.favouriteAnime.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadFavourites()
+    }
 
     Column(
         modifier = Modifier
@@ -55,7 +60,20 @@ fun AnimeFavouriteScreen(
 
         LazyColumn{
             items(favourites){ favourite ->
-                AnimeItem(anime = favourite)
+                AnimeItem(
+                    anime = favourite,
+                    isFavourite = true,
+                    onFavouriteClick = {
+                        favourite.id?.let { id ->
+                            viewModel.removeFromFavourites(id)
+                        }
+                    },
+                    showDetails = {
+                        favourite.id?.let { id ->
+                            onAnimeclick(id)
+                        }
+                    }
+                )
             }
         }
 

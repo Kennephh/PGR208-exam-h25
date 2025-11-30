@@ -30,6 +30,11 @@ fun AnimeListScreen(
     val animeList by viewModel.animeList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val hasNextPage by viewModel.hasNextPage.collectAsState()
+    val favouriteIds by viewModel.favouriteIds.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadFavourites()
+    }
 
     Column(
         modifier = Modifier
@@ -64,14 +69,24 @@ fun AnimeListScreen(
                 .fillMaxWidth()
         ){
             items(animeList) { anime ->
+
+                val isFavourite = favouriteIds.contains(anime.id)
+
                 AnimeItem(
-                    anime,
+                    anime = anime,
+                    isFavourite = isFavourite,
+                    onFavouriteClick = {
+                        anime.id?.let { id ->
+                            viewModel.toggleFavourite(id)
+                        }
+                    },
                     showDetails = {
                         anime.id?.let{ id ->
                             onAnimeClick(id)
                         }
                     }
                 )
+
             }
             if (hasNextPage && !isLoading) {
                 item {
