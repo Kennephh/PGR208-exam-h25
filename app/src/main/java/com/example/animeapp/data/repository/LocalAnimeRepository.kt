@@ -47,6 +47,15 @@ object LocalAnimeRepository {
             _animeDao.deleteAnime(anime)
     }
 
+    suspend fun updateUserCreatedAnime (anime: UserCreatedAnime) : Int {
+            return try {
+                _animeDao.updateAnime(anime)
+            } catch (e : Exception){
+                Log.e("Exception: updateUserCreatedAnime", e.toString())
+                -1
+            }
+    }
+
     // Favourites
     // Legge til
     suspend fun addAnimeToFavourites(anime: Anime){
