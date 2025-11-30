@@ -147,7 +147,7 @@ fun AppNavigation(
                 composable<NavRoutes.AnimeFavouriteRoute>{
                     AnimeFavouriteScreen(
                         animeFavouriteViewModel,
-                        onAnimeclick = { animeId ->
+                        onAnimeClick = { animeId ->
                             animeListViewModel.onAnimeSelected(animeId)
                             navController.navigate(NavRoutes.AnimeDetailRoute)
                         }

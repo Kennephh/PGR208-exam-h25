@@ -3,6 +3,9 @@ package com.example.animeapp.data.repository
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
+import com.example.animeapp.data.api.Anime
+import com.example.animeapp.data.api.Images
+import com.example.animeapp.data.api.Jpg
 import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.database.UserCreatedAnime
@@ -46,14 +49,50 @@ object LocalAnimeRepository {
 
     // Favourites
     // Legge til
-    suspend fun addAnimeToFavourites(id: Int){
-            val favourite = FavouriteAnime(favouriteId = id)
-            try {
-                _animeDao.addFavourite(favourite)
-            } catch (e : Exception){
-                Log.d("addAnimeToFavourites, LocalRepo fail", e.toString())
-            }
+    suspend fun addAnimeToFavourites(anime: Anime){
+
+        val year = anime.year ?: anime.aired?.prop?.from?.year ?: 0
+        val entity = FavouriteAnime(
+            favouriteId = anime.id ?: 0,
+            title = anime.title ?: "Unknown",
+            imageUrl = anime.images?.jpg?.largeImageUrl ?: "",
+            score = anime.score,
+            episodes = anime.episodes,
+            year = year
+        )
+
+        try {
+            _animeDao.addFavourite(entity)
+        } catch (e : Exception){
+            Log.e("LocalRepo", "Add fav failed", e)
         }
+    }
+
+    suspend fun getFavouriteAnimes(): List<Anime>{
+        try {
+            val entities = _animeDao.getAllFavourites()
+
+            return entities.map { entity ->
+                Anime(
+                    id = entity.favouriteId,
+                    title = entity.title,
+                    score = entity.score,
+                    episodes = entity.episodes,
+                    year = entity.year,
+                    synopsis = null,
+                    genres = null,
+                    studios = null,
+                    aired = null,
+                    images = Images(
+                        jpg = Jpg(largeImageUrl = entity.imageUrl)
+                    )
+                )
+            }
+        } catch (e: Exception){
+            Log.e("LocalRepo", "Get favs failed", e)
+            return emptyList()
+        }
+    }
 
     suspend fun getAllFavouriteIds(): List<Int>{
         try {
@@ -74,9 +113,8 @@ object LocalAnimeRepository {
     }
 
     suspend fun removeFromFavourites(id : Int){
-        val favourite = FavouriteAnime(favouriteId = id)
         try {
-            _animeDao.removeFavourite(favourite)
+            _animeDao.deleteFavouriteById(id)
         } catch (e: Exception){
             Log.d("removeFromFavourites", e.toString())
         }

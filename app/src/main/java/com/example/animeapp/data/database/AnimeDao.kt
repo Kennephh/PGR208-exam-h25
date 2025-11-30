@@ -30,6 +30,9 @@ interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFavourite(anime: FavouriteAnime)
 
+    @Query("SELECT * FROM favourite_anime")
+    suspend fun getAllFavourites(): List<FavouriteAnime>
+
     @Delete
     suspend fun removeFavourite(anime: FavouriteAnime)
 
@@ -38,5 +41,8 @@ interface AnimeDao {
 
     @Query("SELECT COUNT(*) FROM favourite_anime WHERE favouriteId = :id")
     suspend fun isFavourite(id: Int) : Int // Returnerer int men blir brukt som boolean
+
+    @Query("DELETE FROM favourite_anime WHERE favouriteId = :id")
+    suspend fun deleteFavouriteById(id: Int)
 
 }
