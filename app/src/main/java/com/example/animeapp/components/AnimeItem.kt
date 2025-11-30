@@ -55,12 +55,20 @@ fun AnimeItem(
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
+    val year = anime.year
+        ?: anime.aired?.prop?.from?.year
+        ?: "Unknown"
+
+    // Favourite
+    var isFavourite by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = anime.id) {
         anime.id?.let { id ->
+            isFavourite = LocalAnimeRepository.isFavourite(id)
         }
     }
+
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
@@ -76,6 +84,7 @@ fun AnimeItem(
         ) {
             // Start Box-1 (Image-box)
             Box(
+
             ){
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
@@ -90,6 +99,7 @@ fun AnimeItem(
                             leftShape
                         )
                 )
+
                 Text(
                     text = "${anime.id}",
                     style = MaterialTheme.typography.bodySmall,
@@ -147,6 +157,7 @@ fun AnimeItem(
                         )
 
                     }
+
                     ElevatedButton(
                         modifier = Modifier
                             .padding(2.dp)
@@ -155,14 +166,17 @@ fun AnimeItem(
                         onClick = {
                             anime.id?.let { id ->
                                 scope.launch {
-                                    val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
-                                    if (isCurrentlyFavourite){
-                                        LocalAnimeRepository.removeFromFavourites(id)
-                                        onRemoveFavourite(anime)
-                                    } else {
-                                        LocalAnimeRepository.addAnimeToFavourites(id)
-                                    }
+                                val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
+                                if (isCurrentlyFavourite){
+                                    LocalAnimeRepository.removeFromFavourites(id)
+                                    onRemoveFavourite(anime)
+                                    isFavourite = false
+                                } else {
+                                    LocalAnimeRepository.addAnimeToFavourites(id)
+                                    isFavourite = true
+                                }
                             }
+
                             }
                         }
                     ) {
@@ -173,6 +187,7 @@ fun AnimeItem(
                         )
                     }
                 }
+
             } // End Box-2
         } // End main row
     }
