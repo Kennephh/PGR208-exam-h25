@@ -206,10 +206,9 @@ fun AppNavigation(
                             onEditClick = { updatedAnime ->
                                 // 1. Be ViewModel om å oppdatere databasen
                                 animeCreateViewModel.updateUserCreatedAnime(updatedAnime)
-                                // 2. Gå tilbake til forrige skjerm (detaljesiden)
-                                navController.popBackStack()
+                                // 2. Gå tilbake til create skjerm
+                                navController.navigate(NavRoutes.AnimeCreateRoute)
                             }
-
                         )
                     }
                 }

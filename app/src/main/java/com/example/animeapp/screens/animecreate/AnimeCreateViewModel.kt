@@ -53,6 +53,7 @@ class AnimeCreateViewModel : ViewModel() {
         viewModelScope.launch (Dispatchers.IO){
             try {
                 LocalAnimeRepository.updateUserCreatedAnime(anime)
+                setUserCreatedAnime()
             } catch (e : Exception){
                 Log.e("updateUserCreatedAnime, animeCreateViewModel", e.toString())
             }
