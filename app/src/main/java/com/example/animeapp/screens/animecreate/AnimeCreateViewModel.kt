@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.sql.SQLException
 
 
@@ -41,4 +42,11 @@ class AnimeCreateViewModel : ViewModel() {
             }
         }
     }
+    fun deleteUserCreatedAnime(anime: UserCreatedAnime){
+        viewModelScope.launch ( Dispatchers.IO ){
+            LocalAnimeRepository.deleteUserCreatedAnime(anime)
+            _userCreatedAnimeList.value = _userCreatedAnimeList.value.filter { it.id != anime.id  }
+        }
+    }
+
 }

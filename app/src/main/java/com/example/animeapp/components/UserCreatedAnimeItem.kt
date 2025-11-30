@@ -21,7 +21,8 @@ import com.example.animeapp.data.database.UserCreatedAnime
 @Composable
 fun UserCreatedAnimeItem(
     userCreatedAnime: UserCreatedAnime,
-    showDetails: (() -> Unit) ? = null
+    showDetails: (() -> Unit) ? = null,
+    onDeleteClick: () -> Unit
 ) {
 
     val cardHeight = 42.dp

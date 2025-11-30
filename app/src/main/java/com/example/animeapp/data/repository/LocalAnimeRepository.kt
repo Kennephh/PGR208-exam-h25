@@ -43,6 +43,10 @@ object LocalAnimeRepository {
         }
     }
 
+    suspend fun deleteUserCreatedAnime (anime : UserCreatedAnime){
+            _animeDao.deleteAnime(anime)
+    }
+
     // Favourites
     // Legge til
     suspend fun addAnimeToFavourites(anime: Anime){

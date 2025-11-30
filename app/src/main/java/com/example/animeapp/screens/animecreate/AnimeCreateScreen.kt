@@ -35,7 +35,8 @@ import com.example.animeapp.data.database.UserCreatedAnime
 @Composable
 fun AnimeCreateScreen(
     animeCreateViewModel: AnimeCreateViewModel,
-    onAnimeClick: (UserCreatedAnime) -> Unit
+    onAnimeClick: (UserCreatedAnime) -> Unit,
+    onDeleteClick: (UserCreatedAnime) -> Unit
     ){
 
     val animeList by animeCreateViewModel.userCreatedAnimeList.collectAsState()
@@ -208,10 +209,10 @@ fun AnimeCreateScreen(
             items(animeList) { anime ->
                 UserCreatedAnimeItem(
                     userCreatedAnime = anime,
-                        showDetails = {
-                            onAnimeClick(anime)
-                        }
-                    )
+                    showDetails = { onAnimeClick(anime) },
+                    onDeleteClick = {onDeleteClick(anime)}
+
+                )
             }
         }
     } // Main end
