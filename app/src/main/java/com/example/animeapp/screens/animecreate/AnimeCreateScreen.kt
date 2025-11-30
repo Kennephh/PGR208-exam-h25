@@ -55,8 +55,24 @@ fun AnimeCreateScreen(
         mutableStateOf("")
     }
 
+    var titleError by remember {
+        mutableStateOf(false)
+    }
+
+    var genreError by remember {
+        mutableStateOf(false)
+    }
+
+    var synopsisError by remember {
+        mutableStateOf(false)
+    }
+
     fun addNewAnime(){
-        if(title.isNotBlank() && genre.isNotBlank() && synopsis.isNotBlank()){
+        titleError = title.isBlank()
+        genreError = genre.isBlank()
+        synopsisError = synopsis.isBlank()
+
+        if(!titleError && !genreError && !synopsisError){
             val trimmedTitle = title.trim()
             val trimmedGenre = genre.trim()
             val trimmedSynopsis = synopsis.trim()
@@ -113,7 +129,9 @@ fun AnimeCreateScreen(
 
             OutlinedTextField(
                 value = title,
-                onValueChange = {title = it},
+                onValueChange = {
+                    title = it
+                    if(titleError) titleError = false},
                 label = {
                     Text(
                         text = "Enter title..",
@@ -121,6 +139,15 @@ fun AnimeCreateScreen(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
+                },
+                isError = titleError,
+                supportingText = {
+                    if (titleError){
+                        Text(
+                            text = "Title is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
                 },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
@@ -135,13 +162,23 @@ fun AnimeCreateScreen(
 
             OutlinedTextField(
                 value = genre,
-                onValueChange = {genre = it},
+                onValueChange = {
+                    genre = it
+                    if (genreError) genreError = false},
                 label = {
                     Text(
                         text = "Enter genre..",
                         style = MaterialTheme.typography.labelMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                isError = genreError,
+                supportingText = {
+                    if (genreError)
+                    Text(
+                        text = "Genre is required",
+                        color = MaterialTheme.colorScheme.error
                     )
                 },
                 singleLine = true,
@@ -157,13 +194,23 @@ fun AnimeCreateScreen(
 
             OutlinedTextField(
                 value = synopsis,
-                onValueChange = {synopsis = it},
+                onValueChange = {
+                    synopsis = it
+                    if (synopsisError) synopsisError = false},
                 label = {
                     Text(
                         text = "Enter synopsis..",
                         style = MaterialTheme.typography.labelMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                isError = synopsisError,
+                supportingText = {
+                    if (synopsisError)
+                    Text(
+                        text = "Synopsis is required",
+                        color = MaterialTheme.colorScheme.error
                     )
                 },
                 singleLine = true,
