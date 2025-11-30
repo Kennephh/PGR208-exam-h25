@@ -32,7 +32,8 @@ import com.example.animeapp.data.database.UserCreatedAnime
 @Composable
 fun UsercreatedAnimeDetailsItem(
     anime: UserCreatedAnime,
-    goBack: ( () -> Unit ) ? = null
+    goBack: ( () -> Unit ) ? = null,
+    onDeleteClick: () -> Unit
 ) {
 
     val borderThickness = 2.dp
@@ -101,9 +102,7 @@ fun UsercreatedAnimeDetailsItem(
                 }
 
                 IconButton(
-                    onClick = {
-
-                    },
+                    onClick =  onDeleteClick,
                     modifier = Modifier
                         .weight(0.2f)
                 ) {

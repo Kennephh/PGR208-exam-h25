@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -141,7 +142,8 @@ fun AppNavigation(
                         onAnimeClick = { anime ->
                             animeCreateViewModel.onUserAnimeSelected(anime)
                             navController.navigate(NavRoutes.UserAnimeDetailRoute)
-                        }
+                        },
+                        onDeleteClick = {anime -> animeCreateViewModel.deleteUserCreatedAnime(anime)}
                     )
                 }
                 composable<NavRoutes.AnimeFavouriteRoute>{
@@ -171,7 +173,11 @@ fun AppNavigation(
                     if (selectedAnime != null){
                         UsercreatedAnimeDetailsItem(
                             anime = selectedAnime,
-                            goBack = {navController.popBackStack()}
+                            goBack = {navController.popBackStack()},
+                            onDeleteClick = {
+                                animeCreateViewModel.deleteUserCreatedAnime(selectedAnime)
+                                navController.popBackStack()
+                            }
                         )
                     } else {
                         Text("Could not find anime details")
