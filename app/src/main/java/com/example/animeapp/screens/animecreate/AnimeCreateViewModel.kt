@@ -41,4 +41,10 @@ class AnimeCreateViewModel : ViewModel() {
             }
         }
     }
+
+    fun deleteUserCreatedAnime(anime: UserCreatedAnime){
+        viewModelScope.launch ( Dispatchers.IO ){
+            LocalAnimeRepository.deleteUserCreatedAnime(anime)
+        }
+    }
 }

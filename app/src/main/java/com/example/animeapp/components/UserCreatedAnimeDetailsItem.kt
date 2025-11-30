@@ -101,7 +101,9 @@ fun UsercreatedAnimeDetailsItem(
                 }
 
                 IconButton(
-                    onClick = {},
+                    onClick = {
+
+                    },
                     modifier = Modifier
                         .weight(0.2f)
                 ) {

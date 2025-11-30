@@ -6,7 +6,6 @@ import androidx.room.Room
 import com.example.animeapp.data.database.AppDataBase
 import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.database.UserCreatedAnime
-import android.database.SQLException
 
 object LocalAnimeRepository {
 
@@ -39,6 +38,10 @@ object LocalAnimeRepository {
             Log.e("Exception: insertUserCreatedAnime i Repo", e.toString())
             -1L
         }
+    }
+
+    suspend fun deleteUserCreatedAnime (anime : UserCreatedAnime){
+            _animeDao.deleteAnime(anime)
     }
 
     // Favourites
