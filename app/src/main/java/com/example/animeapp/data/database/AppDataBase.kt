@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
         UserCreatedAnime::class,
         FavouriteAnime::class
                ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 

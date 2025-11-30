@@ -37,7 +37,7 @@ class AnimeDetailsViewModel: ViewModel() {
                 LocalAnimeRepository.removeFromFavourites(animeId)
                 _isFavourite.value = false
             } else {
-                LocalAnimeRepository.addAnimeToFavourites(animeId)
+                LocalAnimeRepository.addAnimeToFavourites(currentAnime)
                 _isFavourite.value = true
             }
         }
