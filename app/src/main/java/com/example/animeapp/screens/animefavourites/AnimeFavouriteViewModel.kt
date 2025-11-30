@@ -24,26 +24,16 @@ class AnimeFavouriteViewModel : ViewModel() {
 
     fun loadFavourites() {
         viewModelScope.launch(Dispatchers.IO) {
-            val favouriteIds = LocalAnimeRepository.getAllFavouriteIds()
-            val animeList = mutableListOf<Anime>()
-
-            for (id in favouriteIds) {
-                val anime = APIAnimeRepository.getAnimeById(id)
-                anime?.let { animeList.add(it) }
-            }
-            _favouriteAnime.value = animeList
+            _favouriteAnime.value = LocalAnimeRepository.getFavouriteAnimes()
         }
     }
 
     fun removeFromFavourites(animeId: Int) {
         viewModelScope.launch {
-
-            val currentList =_favouriteAnime.value
+            val currentList = _favouriteAnime.value
             _favouriteAnime.value = currentList.filterNot { it.id == animeId }
 
-            withContext(Dispatchers.IO) {
-                LocalAnimeRepository.removeFromFavourites(animeId)
-            }
+            LocalAnimeRepository.removeFromFavourites(animeId)
         }
     }
 }

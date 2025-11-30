@@ -64,8 +64,13 @@ class AnimeListViewModel : ViewModel() {
                 LocalAnimeRepository.removeFromFavourites(animeId)
                 currentFavourites.remove(animeId)
             } else {
-                LocalAnimeRepository.addAnimeToFavourites(animeId)
-                currentFavourites.add(animeId)
+
+                val anime = _animeList.value.find { it.id == animeId}
+
+                if (anime != null) {
+                    LocalAnimeRepository.addAnimeToFavourites(anime)
+                    currentFavourites.add(animeId)
+                }
             }
             _favouriteIds.value = currentFavourites
 
