@@ -23,7 +23,7 @@ import com.example.animeapp.components.AnimeItem
 @Composable
 fun AnimeFavouriteScreen(
     viewModel: AnimeFavouriteViewModel = viewModel(),
-    onAnimeclick: (Int) -> Unit
+    onAnimeClick: (Int) -> Unit
 ){
     val favourites by viewModel.favouriteAnime.collectAsState()
 
@@ -70,7 +70,7 @@ fun AnimeFavouriteScreen(
                     },
                     showDetails = {
                         favourite.id?.let { id ->
-                            onAnimeclick(id)
+                            onAnimeClick(id)
                         }
                     }
                 )
