@@ -63,7 +63,8 @@ fun AnimeItem(
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
-            .padding(all = 4.dp),
+            .padding(all = 4.dp)
+            .height(cardHeight),
         onClick = {
             showDetails?.invoke()
         }
@@ -110,7 +111,6 @@ fun AnimeItem(
             // Start Box-2 (Title, info and fav-btn)
             Box(
                 modifier = Modifier
-                    .weight(1f)
                     .height(cardHeight)
             ){
                 Row(
@@ -123,11 +123,11 @@ fun AnimeItem(
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(end = 8.dp)
                     ) {
                         Text(
                             text = "$year",
                             style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.secondary,
                         )
                         Text(
                             text = anime.title ?: "Unknown Title",
@@ -143,6 +143,7 @@ fun AnimeItem(
                         Text(
                             text = "Episodes: ${anime.episodes.toString()}",
                             style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.secondary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
@@ -159,7 +160,7 @@ fun AnimeItem(
                         Icon(
                             imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "Fav icon",
-                            tint = Color(205,0,0)
+                            tint = if (isFavourite) Color(205,0,0) else MaterialTheme.colorScheme.secondary
                         )
                     }
                 }
