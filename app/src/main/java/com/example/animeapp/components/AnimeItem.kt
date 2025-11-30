@@ -55,8 +55,8 @@ fun AnimeItem(
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
-    val year = anime.year?.toString()
-        ?: anime.aired?.prop?.from?.year?.toString()
+    val year = anime.year
+        ?: anime.aired?.prop?.from?.year
         ?: "Unknown"
 
     // Favourite
