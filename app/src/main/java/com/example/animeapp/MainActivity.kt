@@ -12,10 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.animeapp.data.repository.LocalAnimeRepository
 import com.example.animeapp.navigation.AppNavigation
 import com.example.animeapp.screens.anime.AnimeListViewModel
-import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateViewModel
 import com.example.animeapp.screens.animedetails.AnimeDetailsViewModel
 import com.example.animeapp.screens.animefavourites.AnimeFavouriteViewModel
+import com.example.animeapp.screens.animesearch.AnimeSearchViewModel
 import com.example.animeapp.ui.theme.AnimeAPPTheme
 
 class MainActivity : ComponentActivity() {

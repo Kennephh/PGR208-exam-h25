@@ -3,13 +3,11 @@ package com.example.animeapp.screens.animefavourites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.api.Anime
-import com.example.animeapp.data.repository.APIAnimeRepository
 import com.example.animeapp.data.repository.LocalAnimeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AnimeFavouriteViewModel : ViewModel() {
     // lager _anime som er en mutablestateflow av Anime
