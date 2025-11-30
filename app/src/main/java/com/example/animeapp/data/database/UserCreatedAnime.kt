@@ -1,6 +1,5 @@
 package com.example.animeapp.data.database
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
