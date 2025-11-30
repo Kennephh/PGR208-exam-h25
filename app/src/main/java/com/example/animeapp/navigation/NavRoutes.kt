@@ -21,4 +21,7 @@ sealed class NavRoutes {
 
     @Serializable
     object UserAnimeDetailRoute : NavRoutes()
+
+     @Serializable
+    object UserCreatedAnimeEditRoute : NavRoutes()
 }

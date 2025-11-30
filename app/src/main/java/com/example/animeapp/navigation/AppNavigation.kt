@@ -23,6 +23,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.animeapp.components.UserCreatedAnimeEditItem
+import com.example.animeapp.components.UserCreatedAnimeItem
 import com.example.animeapp.components.UsercreatedAnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
@@ -177,10 +179,38 @@ fun AppNavigation(
                             onDeleteClick = {
                                 animeCreateViewModel.deleteUserCreatedAnime(selectedAnime)
                                 navController.popBackStack()
+                            },
+                            onEditClick =  { animeToEdit ->
+                                animeCreateViewModel.onUserAnimeSelected(animeToEdit)
+                                navController.navigate(NavRoutes.UserCreatedAnimeEditRoute)
                             }
                         )
                     } else {
                         Text("Could not find anime details")
+                    }
+                }
+
+                composable<NavRoutes.UserCreatedAnimeEditRoute>{
+                    val animeToEdit = animeCreateViewModel.selectedUserAnime
+
+                    if(animeToEdit != null){
+                        UserCreatedAnimeEditItem(
+                            userCreatedAnime = animeToEdit,
+                            goBack = {navController.popBackStack()},
+                            onDeleteClick = {
+                                animeCreateViewModel.deleteUserCreatedAnime(animeToEdit)
+                                navController.navigate(NavRoutes.AnimeCreateRoute){
+                                    popUpTo(NavRoutes.AnimeCreateRoute){inclusive = true}
+                                }
+                            },
+                            onEditClick = { updatedAnime ->
+                                // 1. Be ViewModel om å oppdatere databasen
+                                animeCreateViewModel.updateUserCreatedAnime(updatedAnime)
+                                // 2. Gå tilbake til forrige skjerm (detaljesiden)
+                                navController.popBackStack()
+                            }
+
+                        )
                     }
                 }
             }

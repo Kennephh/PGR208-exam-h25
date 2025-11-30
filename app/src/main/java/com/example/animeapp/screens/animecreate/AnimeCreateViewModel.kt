@@ -49,4 +49,13 @@ class AnimeCreateViewModel : ViewModel() {
         }
     }
 
+    fun updateUserCreatedAnime(anime: UserCreatedAnime){
+        viewModelScope.launch (Dispatchers.IO){
+            try {
+                LocalAnimeRepository.updateUserCreatedAnime(anime)
+            } catch (e : Exception){
+                Log.e("updateUserCreatedAnime, animeCreateViewModel", e.toString())
+            }
+        }
+    }
 }
