@@ -1,10 +1,8 @@
 package com.example.animeapp.screens.animefavourites
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.api.Anime
-import com.example.animeapp.data.database.FavouriteAnime
 import com.example.animeapp.data.repository.APIAnimeRepository
 import com.example.animeapp.data.repository.LocalAnimeRepository
 import kotlinx.coroutines.Dispatchers

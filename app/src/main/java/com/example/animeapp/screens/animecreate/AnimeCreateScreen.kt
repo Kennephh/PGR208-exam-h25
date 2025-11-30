@@ -33,7 +33,10 @@ import com.example.animeapp.components.UserCreatedAnimeItem
 import com.example.animeapp.data.database.UserCreatedAnime
 
 @Composable
-fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
+fun AnimeCreateScreen(
+    animeCreateViewModel: AnimeCreateViewModel,
+    onAnimeClick: (UserCreatedAnime) -> Unit
+    ){
 
     val animeList by animeCreateViewModel.userCreatedAnimeList.collectAsState()
 
@@ -86,8 +89,8 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 .padding(16.dp)
         ) {
             Text(
-                text = "Add new anime",
-                style = MaterialTheme.typography.titleSmall,
+                text = "Create new anime",
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -102,10 +105,8 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
 
         // Search bar start
         Column(
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()
         ){
 
@@ -189,7 +190,7 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Animes you have added",
+                text = "Animes you have created",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -205,7 +206,12 @@ fun AnimeCreateScreen(animeCreateViewModel: AnimeCreateViewModel){
                 .fillMaxWidth()
         ) {
             items(animeList) { anime ->
-                UserCreatedAnimeItem(anime)
+                UserCreatedAnimeItem(
+                    userCreatedAnime = anime,
+                        showDetails = {
+                            onAnimeClick(anime)
+                        }
+                    )
             }
         }
     } // Main end

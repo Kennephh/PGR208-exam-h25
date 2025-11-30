@@ -40,6 +40,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
     var lastSearchId by remember { mutableStateOf<Int?>(null) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val isLoading by animeSearchViewModel.isLoading.collectAsState()
+    val isFavourite by animeSearchViewModel.isFavourite.collectAsState()
 
     fun searchAnimeById(){
         val idParsed = id.toIntOrNull()
@@ -52,10 +53,9 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
 
     // Start main
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(8.dp)
             .fillMaxSize()
+            .padding(8.dp)
     ) {
 
         // Title row start
@@ -66,7 +66,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
         ) {
             Text(
                 text = "Search Anime by ID",
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -84,7 +84,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()
         ) {
 
@@ -141,7 +140,12 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                       modifier = Modifier
                           .align(Alignment.TopCenter)
                   ){
-                      AnimeDetailsItem(anime!!)
+                      AnimeDetailsItem(
+                          anime = anime!!,
+                          isFavourite = isFavourite,
+                          onFavouriteClick = {animeSearchViewModel.toggleFavourite()},
+                          goBack = null
+                      )
                   }
                 }
 

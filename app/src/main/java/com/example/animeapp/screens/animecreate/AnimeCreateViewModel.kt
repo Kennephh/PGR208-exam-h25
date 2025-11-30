@@ -1,5 +1,6 @@
 package com.example.animeapp.screens.animecreate
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.database.UserCreatedAnime
@@ -15,6 +16,13 @@ class AnimeCreateViewModel : ViewModel() {
     private val _userCreatedAnimeList = MutableStateFlow<List<UserCreatedAnime>>(emptyList())
     val userCreatedAnimeList = _userCreatedAnimeList.asStateFlow()
 
+    var selectedUserAnime : UserCreatedAnime? = null
+        private set
+
+    fun onUserAnimeSelected(anime: UserCreatedAnime){
+        selectedUserAnime = anime
+    }
+
     fun setUserCreatedAnime(){
         viewModelScope.launch(Dispatchers.IO){
             _userCreatedAnimeList.value = LocalAnimeRepository.getAllUserCreatedAnime()
@@ -28,6 +36,7 @@ class AnimeCreateViewModel : ViewModel() {
                 val newAnime = anime.copy(id = newAnimeId.toInt())
                 _userCreatedAnimeList.value += newAnime
             } else{
+                Log.e("AnimeCreate", "Failed to save anime")
                 throw SQLException("Lagring av anime feilet.")
             }
         }

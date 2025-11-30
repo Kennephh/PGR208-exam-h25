@@ -18,4 +18,7 @@ sealed class NavRoutes {
 
     @Serializable
     object AnimeDetailRoute : NavRoutes()
+
+    @Serializable
+    object UserAnimeDetailRoute : NavRoutes()
 }

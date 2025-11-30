@@ -7,15 +7,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -63,15 +65,20 @@ fun AnimeDetailsItem(
 
     val borderThickness = 2.dp
 
+    val year = anime.year
+        ?: anime.aired?.prop?.from?.year
+        ?: "Unknown"
+
     ElevatedCard(
         modifier = Modifier
             .padding(top = 16.dp)
             .fillMaxWidth()
-            .wrapContentHeight()
+            .fillMaxHeight()
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
 
             Row(
@@ -151,7 +158,7 @@ fun AnimeDetailsItem(
 
                 ) {
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Fav icon",
                         tint = Color(205,0,0)
                     )
@@ -195,7 +202,7 @@ fun AnimeDetailsItem(
                 )
 
                 Text(
-                    text = "Year: ${anime.aired?.prop?.year.toString()}",
+                    text = "$year",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     maxLines = 1,
@@ -208,17 +215,7 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
             }
-
-            Text(
-                text = "Synopsis",
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 0.dp)
-
-            )
 
             HorizontalDivider(
                 thickness = borderThickness,
@@ -228,23 +225,8 @@ fun AnimeDetailsItem(
             )
 
             Text(
-                text = "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question." +
-                        "Lot of info on the anime in question.",
+                text = anime.synopsis ?: "No synopsis available",
                 style = MaterialTheme.typography.bodySmall,
-
-                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
