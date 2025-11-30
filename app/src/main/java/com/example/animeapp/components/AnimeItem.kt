@@ -44,7 +44,7 @@ fun AnimeItem(
     showDetails: (() -> Unit) ? = null
 ){
 
-    val cardHeight = 80.dp
+    val cardHeight = 100.dp
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
@@ -84,20 +84,6 @@ fun AnimeItem(
                         )
                 )
 
-                Text(
-                    text = "${anime.id}",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .sizeIn(20.dp)
-                        .background(
-                            MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
-                            RoundedCornerShape(8.dp)
-                        )
-                        .padding(2.dp)
-                )
             } // End Box-1
 
             // Start Box-2 (Title, info and fav-btn)
