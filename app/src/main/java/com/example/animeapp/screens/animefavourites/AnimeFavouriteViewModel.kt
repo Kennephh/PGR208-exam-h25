@@ -17,6 +17,11 @@ class AnimeFavouriteViewModel : ViewModel() {
     val favouriteAnime = _favouriteAnime.asStateFlow()
 
 
+    init {
+        loadFavourites()
+    }
+
+
     fun loadFavourites() {
         viewModelScope.launch(Dispatchers.IO) {
             val favouriteIds = LocalAnimeRepository.getAllFavouriteIds()
@@ -30,16 +35,15 @@ class AnimeFavouriteViewModel : ViewModel() {
         }
     }
 
-    fun removeFavourite(animeRemove: Anime) {
+    fun removeFromFavourites(animeId: Int) {
         viewModelScope.launch {
+
             val currentList =_favouriteAnime.value
-            _favouriteAnime.value = currentList.filterNot { it.id == animeRemove.id }
+            _favouriteAnime.value = currentList.filterNot { it.id == animeId }
+
             withContext(Dispatchers.IO) {
-                animeRemove.id?.let { id ->
-                    LocalAnimeRepository.removeFromFavourites(id)
-                }
+                LocalAnimeRepository.removeFromFavourites(animeId)
             }
-            loadFavourites()
         }
     }
 }

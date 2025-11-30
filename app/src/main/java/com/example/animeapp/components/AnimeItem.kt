@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -46,9 +47,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun AnimeItem(
     anime: Anime,
-    onRemoveFavourite: (Anime) -> Unit = {},
+    isFavourite: Boolean,
+    onFavouriteClick: () -> Unit,
     showDetails: (() -> Unit) ? = null
-
 ){
 
     val cardHeight = 80.dp
@@ -58,16 +59,6 @@ fun AnimeItem(
     val year = anime.year
         ?: anime.aired?.prop?.from?.year
         ?: "Unknown"
-
-    // Favourite
-    var isFavourite by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-
-    LaunchedEffect(key1 = anime.id) {
-        anime.id?.let { id ->
-            isFavourite = LocalAnimeRepository.isFavourite(id)
-        }
-    }
 
     ElevatedCard(
         shape = leftShape,
@@ -163,25 +154,10 @@ fun AnimeItem(
                             .padding(2.dp)
                             .width(40.dp),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = {
-                            anime.id?.let { id ->
-                                scope.launch {
-                                val isCurrentlyFavourite = LocalAnimeRepository.isFavourite(id)
-                                if (isCurrentlyFavourite){
-                                    LocalAnimeRepository.removeFromFavourites(id)
-                                    onRemoveFavourite(anime)
-                                    isFavourite = false
-                                } else {
-                                    LocalAnimeRepository.addAnimeToFavourites(id)
-                                    isFavourite = true
-                                }
-                            }
-
-                            }
-                        }
+                        onClick = { onFavouriteClick() }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.FavoriteBorder,
+                            imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "Fav icon",
                             tint = Color(205,0,0)
                         )

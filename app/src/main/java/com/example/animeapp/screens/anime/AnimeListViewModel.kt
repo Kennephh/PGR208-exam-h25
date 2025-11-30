@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.api.Anime
 import com.example.animeapp.data.repository.APIAnimeRepository
+import com.example.animeapp.data.repository.LocalAnimeRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -23,7 +26,11 @@ class AnimeListViewModel : ViewModel() {
 
     private var _currentPage = 1
 
+    private val _favouriteIds = MutableStateFlow<Set<Int>>(emptySet())
+    val favouriteIds: StateFlow<Set<Int>> = _favouriteIds.asStateFlow()
+
     init {
+        loadFavourites()
         loadMoreAnime()
     }
 
@@ -45,6 +52,30 @@ class AnimeListViewModel : ViewModel() {
             _currentPage++
 
             _isLoading.value = false
+        }
+    }
+
+    fun toggleFavourite(animeId: Int){
+
+        viewModelScope.launch(Dispatchers.IO){
+            val currentFavourites = _favouriteIds.value.toMutableSet()
+
+            if (currentFavourites.contains(animeId)){
+                LocalAnimeRepository.removeFromFavourites(animeId)
+                currentFavourites.remove(animeId)
+            } else {
+                LocalAnimeRepository.addAnimeToFavourites(animeId)
+                currentFavourites.add(animeId)
+            }
+            _favouriteIds.value = currentFavourites
+
+        }
+    }
+
+    fun loadFavourites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val ids = LocalAnimeRepository.getAllFavouriteIds()
+            _favouriteIds.value = ids.toSet()
         }
     }
 }
