@@ -29,6 +29,13 @@ class AnimeCreateViewModel : ViewModel() {
         }
     }
 
+    // Ekstra funksjon
+    fun setUserCreatedAnimeSort(){
+        viewModelScope.launch(Dispatchers.IO){
+            _userCreatedAnimeList.value = LocalAnimeRepository.getAllUserCreatedAnimeSort()
+        }
+    }
+
     fun insertUserCreatedAnime(anime : UserCreatedAnime){
         viewModelScope.launch(Dispatchers.IO){
             val newAnimeId = LocalAnimeRepository.insertUserCreatedAnime(anime)

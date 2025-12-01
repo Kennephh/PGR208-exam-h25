@@ -12,6 +12,10 @@ interface AnimeDao {
     @Query("SELECT * FROM UserCreatedAnime")
     suspend fun getAllAnime() : List<UserCreatedAnime>
 
+    // Tileggsfunksjon
+    @Query("SELECT * FROM UserCreatedAnime ORDER BY title")
+    suspend fun getAllAnimeSort() : List<UserCreatedAnime>
+
     @Query("SELECT * FROM UserCreatedAnime WHERE id = :id")
     suspend fun getAnimeById(id: Int) : UserCreatedAnime?
 
