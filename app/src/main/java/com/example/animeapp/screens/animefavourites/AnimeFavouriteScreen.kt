@@ -36,7 +36,6 @@ fun AnimeFavouriteScreen(
             .fillMaxSize()
             .padding(8.dp)
     ) {
-
         // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -76,7 +75,5 @@ fun AnimeFavouriteScreen(
                 )
             }
         }
-
     }
-
 }

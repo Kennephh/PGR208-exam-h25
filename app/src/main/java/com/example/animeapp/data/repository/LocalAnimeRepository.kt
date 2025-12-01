@@ -12,12 +12,12 @@ import com.example.animeapp.data.database.UserCreatedAnime
 
 object LocalAnimeRepository {
 
-    private var _appdatabase : AppDataBase? = null
-    private val _animeDao get() = _appdatabase?.animeDao()
+    private var _appDatabase : AppDataBase? = null
+    private val _animeDao get() = _appDatabase?.animeDao()
         ?: throw IllegalStateException("Database not init")
     fun initializeDatabase(context: Context) {
-        if(_appdatabase != null) return
-        _appdatabase = Room.databaseBuilder(
+        if(_appDatabase != null) return
+        _appDatabase = Room.databaseBuilder(
             context = context.applicationContext,
             klass = AppDataBase::class.java,
             name = "anime-database"
@@ -48,18 +48,17 @@ object LocalAnimeRepository {
     }
 
     suspend fun updateUserCreatedAnime (anime: UserCreatedAnime) : Int {
-            return try {
-                _animeDao.updateAnime(anime)
-            } catch (e : Exception){
-                Log.e("Exception: updateUserCreatedAnime", e.toString())
-                -1
-            }
+        return try {
+            _animeDao.updateAnime(anime)
+        } catch (e : Exception){
+            Log.e("Exception: updateUserCreatedAnime", e.toString())
+            -1
+        }
     }
 
     // Favourites
     // Legge til
     suspend fun addAnimeToFavourites(anime: Anime){
-
         val year = anime.year ?: anime.aired?.prop?.from?.year ?: 0
         val entity = FavouriteAnime(
             favouriteId = anime.id ?: 0,
@@ -69,7 +68,6 @@ object LocalAnimeRepository {
             episodes = anime.episodes,
             year = year
         )
-
         try {
             _animeDao.addFavourite(entity)
         } catch (e : Exception){

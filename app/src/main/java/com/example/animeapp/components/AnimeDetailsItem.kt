@@ -53,7 +53,6 @@ fun AnimeDetailsItem(
     onFavouriteClick: () -> Unit,
     goBack: ( () -> Unit ) ? = null
 ) {
-
     val borderThickness = 2.dp
     val context = LocalContext.current
 
@@ -75,7 +74,6 @@ fun AnimeDetailsItem(
                     color = MaterialTheme.colorScheme.primary
                 )
         ) {
-
             if (goBack != null){
                 IconButton(
                     onClick = goBack
@@ -110,12 +108,7 @@ fun AnimeDetailsItem(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-
-
-
-            Box(
-
-            ){
+            Box{
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
@@ -168,17 +161,18 @@ fun AnimeDetailsItem(
                         modifier = Modifier
                             .size(20.dp)
                     )
+
                     Spacer(
                         modifier = Modifier
                             .width(4.dp)
                     )
+
                     Text(
                         text = "${anime.score ?: "N/A"}",
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onTertiary
                     )
                 }
-
                 // Year
                 Text(
                     text = "$year",
@@ -194,7 +188,6 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
                 // Episodes
                 Text(
                     text = "Episodes: ${anime.episodes ?: "N/A"}",
@@ -210,7 +203,6 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
                 // Studio
                 Text(
                     text = "Studio: ${anime.studios?.firstOrNull()?.name ?: "Unknown"}",
@@ -226,12 +218,9 @@ fun AnimeDetailsItem(
                         )
                         .padding(8.dp)
                 )
-
                 // Genre
                 anime.genres?.forEach { genre ->
-
                     val genreName = genre.name ?: return@forEach
-
                     Text(
                         text = genreName,
                         style = MaterialTheme.typography.labelLarge,
@@ -247,7 +236,6 @@ fun AnimeDetailsItem(
                             .padding(8.dp)
                     )
                 }
-
             }
 
             HorizontalDivider(
@@ -280,15 +268,16 @@ fun AnimeDetailsItem(
                     Icons.Default.Info,
                     contentDescription = "Info"
                 )
+
                 Spacer(
                     modifier = Modifier
                         .width(8.dp)
                 )
+
                 Text(
                     "Read more at MyAnimeList"
                 )
             }
-
         }
     }
 }

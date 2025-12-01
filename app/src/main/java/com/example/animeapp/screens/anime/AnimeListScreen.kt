@@ -26,7 +26,6 @@ fun AnimeListScreen(
     viewModel: AnimeListViewModel = viewModel(),
     onAnimeClick: (Int) -> Unit
 ){
-
     val animeList by viewModel.animeList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val hasNextPage by viewModel.hasNextPage.collectAsState()
@@ -41,7 +40,6 @@ fun AnimeListScreen(
             .fillMaxSize()
             .padding(8.dp)
     ) {
-
         // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -54,6 +52,7 @@ fun AnimeListScreen(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+
             HorizontalDivider(
                 thickness = 2.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -71,7 +70,6 @@ fun AnimeListScreen(
             items(animeList) { anime ->
 
                 val isFavourite = favouriteIds.contains(anime.id)
-
                 AnimeItem(
                     anime = anime,
                     isFavourite = isFavourite,
@@ -86,7 +84,6 @@ fun AnimeListScreen(
                         }
                     }
                 )
-
             }
             if (hasNextPage && !isLoading) {
                 item {
@@ -96,7 +93,5 @@ fun AnimeListScreen(
                 }
             }
         }
-
     }
-
 }

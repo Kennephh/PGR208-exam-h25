@@ -24,7 +24,6 @@ fun UserCreatedAnimeItem(
     showDetails: (() -> Unit) ? = null,
     onDeleteClick: () -> Unit
 ) {
-
     val cardHeight = 42.dp
 
     OutlinedCard(
@@ -32,14 +31,12 @@ fun UserCreatedAnimeItem(
             showDetails?.invoke()
         },
     ){
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(cardHeight)
         ) {
-
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -69,7 +66,6 @@ fun UserCreatedAnimeItem(
                     .padding(8.dp)
                     .weight(0.5f)
             )
-
         }
     }
 }

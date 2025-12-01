@@ -1,6 +1,5 @@
 package com.example.animeapp.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,8 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -67,9 +63,7 @@ fun AnimeItem(
                 .fillMaxWidth()
         ) {
             // Start Box-1 (Image-box)
-            Box(
-
-            ){
+            Box{
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
@@ -83,9 +77,7 @@ fun AnimeItem(
                             leftShape
                         )
                 )
-
             } // End Box-1
-
             // Start Box-2 (Title, info and fav-btn)
             Box(
                 modifier = Modifier
@@ -97,7 +89,6 @@ fun AnimeItem(
                         .fillMaxSize()
                         .padding(8.dp)
                 ) {
-
                     Column(
                         modifier = Modifier
                             .weight(1f)
@@ -107,17 +98,19 @@ fun AnimeItem(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.secondary,
                         )
+
                         Text(
                             text = anime.title ?: "Unknown Title",
                             style = MaterialTheme.typography.titleMedium,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-
                         )
+
                         HorizontalDivider(
                             thickness = borderThickness,
                             color = MaterialTheme.colorScheme.primary
                         )
+
                         Text(
                             text = "Episodes: ${anime.episodes.toString()}",
                             style = MaterialTheme.typography.bodySmall,
@@ -125,7 +118,6 @@ fun AnimeItem(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
-
                     }
 
                     ElevatedButton(
@@ -142,7 +134,6 @@ fun AnimeItem(
                         )
                     }
                 }
-
             } // End Box-2
         } // End main row
     }

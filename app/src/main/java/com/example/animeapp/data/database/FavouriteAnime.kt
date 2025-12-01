@@ -13,4 +13,3 @@ data class FavouriteAnime(
     val episodes: Int?,
     val year: Int?
 )
-

@@ -41,7 +41,6 @@ fun UserCreatedAnimeEditItem(
     onDeleteClick: () -> Unit,
     onEditClick: (UserCreatedAnime) -> Unit
 ) {
-
     var title by remember { mutableStateOf(userCreatedAnime.title) }
     var genre by remember { mutableStateOf(userCreatedAnime.genre) }
     var synopsis by remember { mutableStateOf(userCreatedAnime.synopsis) }
@@ -56,7 +55,6 @@ fun UserCreatedAnimeEditItem(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -115,7 +113,6 @@ fun UserCreatedAnimeEditItem(
                 modifier = Modifier
                     .fillMaxWidth()
             ){
-
                 OutlinedTextField(
                     value = title,
                     onValueChange = {title = it},
