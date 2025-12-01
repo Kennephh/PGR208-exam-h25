@@ -43,7 +43,6 @@ fun AppNavigation(
     animeFavouriteViewModel: AnimeFavouriteViewModel,
     animeDetailsViewModel: AnimeDetailsViewModel
 ) {
-
     val navController = rememberNavController()
     var activeItem by rememberSaveable { mutableIntStateOf(0) }
 
@@ -51,8 +50,7 @@ fun AppNavigation(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = {
-            NavigationBar() {
-
+            NavigationBar{
                 NavigationBarItem(
                     selected = activeItem == 1,
                     onClick = {
@@ -111,7 +109,6 @@ fun AppNavigation(
                         )
                     }
                 )// AnimeFavourite end
-
             }// NavigationBar end
         }
     ) { innerpadding ->
@@ -157,7 +154,6 @@ fun AppNavigation(
                 }
                 composable<NavRoutes.AnimeDetailRoute>{ backStackEntry ->
                     val animeId = animeListViewModel.selectedAnimeId
-
                     if (animeId != null) {
                         AnimeDetailsScreen(
                             animeId = animeId,
@@ -165,11 +161,9 @@ fun AppNavigation(
                             viewModel = animeDetailsViewModel
                         )
                     }
-
                 }
                 composable<NavRoutes.UserAnimeDetailRoute>{
                     val selectedAnime = animeCreateViewModel.selectedUserAnime
-
                     if (selectedAnime != null){
                         UserCreatedAnimeDetailsItem(
                             anime = selectedAnime,
@@ -187,10 +181,8 @@ fun AppNavigation(
                         Text("Could not find anime details")
                     }
                 }
-
                 composable<NavRoutes.UserCreatedAnimeEditRoute>{
                     val animeToEdit = animeCreateViewModel.selectedUserAnime
-
                     if(animeToEdit != null){
                         UserCreatedAnimeEditItem(
                             userCreatedAnime = animeToEdit,
