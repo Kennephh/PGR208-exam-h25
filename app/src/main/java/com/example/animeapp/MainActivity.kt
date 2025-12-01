@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Sørger for at databasen starter først
         LocalAnimeRepository.initializeDatabase(this)
 
         enableEdgeToEdge()
