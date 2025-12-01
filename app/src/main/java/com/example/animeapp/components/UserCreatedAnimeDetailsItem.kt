@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.animeapp.data.database.UserCreatedAnime
 
 @Composable
-fun UsercreatedAnimeDetailsItem(
+fun UserCreatedAnimeDetailsItem(
     anime: UserCreatedAnime,
     goBack: ( () -> Unit ) ? = null,
     onDeleteClick: () -> Unit,
@@ -46,7 +46,6 @@ fun UsercreatedAnimeDetailsItem(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -118,7 +117,6 @@ fun UsercreatedAnimeDetailsItem(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(start = 8.dp, top = 0.dp)
-
             )
 
             HorizontalDivider(
@@ -136,7 +134,6 @@ fun UsercreatedAnimeDetailsItem(
                     .fillMaxWidth()
                     .padding(8.dp)
             )
-
         }
     }
 }

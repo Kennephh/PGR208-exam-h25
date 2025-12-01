@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.animeapp.components.UserCreatedAnimeEditItem
-import com.example.animeapp.components.UsercreatedAnimeDetailsItem
+import com.example.animeapp.components.UserCreatedAnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
@@ -171,7 +171,7 @@ fun AppNavigation(
                     val selectedAnime = animeCreateViewModel.selectedUserAnime
 
                     if (selectedAnime != null){
-                        UsercreatedAnimeDetailsItem(
+                        UserCreatedAnimeDetailsItem(
                             anime = selectedAnime,
                             goBack = {navController.popBackStack()},
                             onDeleteClick = {
