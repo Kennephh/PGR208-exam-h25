@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.animeapp.components.UserCreatedAnimeEditItem
-import com.example.animeapp.components.UsercreatedAnimeDetailsItem
+import com.example.animeapp.components.UserCreatedAnimeDetailsItem
 import com.example.animeapp.screens.anime.AnimeListScreen
 import com.example.animeapp.screens.anime.AnimeListViewModel
 import com.example.animeapp.screens.animecreate.AnimeCreateScreen
@@ -43,7 +43,6 @@ fun AppNavigation(
     animeFavouriteViewModel: AnimeFavouriteViewModel,
     animeDetailsViewModel: AnimeDetailsViewModel
 ) {
-
     val navController = rememberNavController()
     var activeItem by rememberSaveable { mutableIntStateOf(0) }
 
@@ -51,8 +50,7 @@ fun AppNavigation(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = {
-            NavigationBar() {
-
+            NavigationBar{
                 NavigationBarItem(
                     selected = activeItem == 1,
                     onClick = {
@@ -111,7 +109,6 @@ fun AppNavigation(
                         )
                     }
                 )// AnimeFavourite end
-
             }// NavigationBar end
         }
     ) { innerpadding ->
@@ -157,7 +154,6 @@ fun AppNavigation(
                 }
                 composable<NavRoutes.AnimeDetailRoute>{ backStackEntry ->
                     val animeId = animeListViewModel.selectedAnimeId
-
                     if (animeId != null) {
                         AnimeDetailsScreen(
                             animeId = animeId,
@@ -165,13 +161,11 @@ fun AppNavigation(
                             viewModel = animeDetailsViewModel
                         )
                     }
-
                 }
                 composable<NavRoutes.UserAnimeDetailRoute>{
                     val selectedAnime = animeCreateViewModel.selectedUserAnime
-
                     if (selectedAnime != null){
-                        UsercreatedAnimeDetailsItem(
+                        UserCreatedAnimeDetailsItem(
                             anime = selectedAnime,
                             goBack = {navController.popBackStack()},
                             onDeleteClick = {
@@ -187,10 +181,8 @@ fun AppNavigation(
                         Text("Could not find anime details")
                     }
                 }
-
                 composable<NavRoutes.UserCreatedAnimeEditRoute>{
                     val animeToEdit = animeCreateViewModel.selectedUserAnime
-
                     if(animeToEdit != null){
                         UserCreatedAnimeEditItem(
                             userCreatedAnime = animeToEdit,
@@ -214,14 +206,3 @@ fun AppNavigation(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

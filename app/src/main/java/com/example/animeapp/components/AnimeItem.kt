@@ -1,6 +1,5 @@
 package com.example.animeapp.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,8 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -44,7 +40,7 @@ fun AnimeItem(
     showDetails: (() -> Unit) ? = null
 ){
 
-    val cardHeight = 80.dp
+    val cardHeight = 100.dp
     val leftShape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp)
     val borderThickness = 2.dp
 
@@ -55,7 +51,8 @@ fun AnimeItem(
     ElevatedCard(
         shape = leftShape,
         modifier = Modifier
-            .padding(all = 4.dp),
+            .padding(bottom = 4.dp)
+            .height(cardHeight),
         onClick = {
             showDetails?.invoke()
         }
@@ -66,9 +63,7 @@ fun AnimeItem(
                 .fillMaxWidth()
         ) {
             // Start Box-1 (Image-box)
-            Box(
-
-            ){
+            Box{
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
@@ -82,27 +77,10 @@ fun AnimeItem(
                             leftShape
                         )
                 )
-
-                Text(
-                    text = "${anime.id}",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .sizeIn(20.dp)
-                        .background(
-                            MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
-                            RoundedCornerShape(8.dp)
-                        )
-                        .padding(2.dp)
-                )
             } // End Box-1
-
             // Start Box-2 (Title, info and fav-btn)
             Box(
                 modifier = Modifier
-                    .weight(1f)
                     .height(cardHeight)
             ){
                 Row(
@@ -111,34 +89,35 @@ fun AnimeItem(
                         .fillMaxSize()
                         .padding(8.dp)
                 ) {
-
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(end = 8.dp)
                     ) {
                         Text(
                             text = "$year",
                             style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.secondary,
                         )
+
                         Text(
                             text = anime.title ?: "Unknown Title",
                             style = MaterialTheme.typography.titleMedium,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-
                         )
+
                         HorizontalDivider(
                             thickness = borderThickness,
                             color = MaterialTheme.colorScheme.primary
                         )
+
                         Text(
-                            text = "Episodes: ${anime.episodes.toString()}",
+                            text = "Episodes: ${anime.episodes?.toString() ?: "N/A"}",
                             style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.secondary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
-
                     }
 
                     ElevatedButton(
@@ -151,11 +130,10 @@ fun AnimeItem(
                         Icon(
                             imageVector = if (isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "Fav icon",
-                            tint = Color(205,0,0)
+                            tint = if (isFavourite) Color(205,0,0) else MaterialTheme.colorScheme.secondary
                         )
                     }
                 }
-
             } // End Box-2
         } // End main row
     }

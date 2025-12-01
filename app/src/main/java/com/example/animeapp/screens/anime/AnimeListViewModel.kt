@@ -56,7 +56,6 @@ class AnimeListViewModel : ViewModel() {
     }
 
     fun toggleFavourite(animeId: Int){
-
         viewModelScope.launch(Dispatchers.IO){
             val currentFavourites = _favouriteIds.value.toMutableSet()
 
@@ -64,16 +63,13 @@ class AnimeListViewModel : ViewModel() {
                 LocalAnimeRepository.removeFromFavourites(animeId)
                 currentFavourites.remove(animeId)
             } else {
-
                 val anime = _animeList.value.find { it.id == animeId}
-
                 if (anime != null) {
                     LocalAnimeRepository.addAnimeToFavourites(anime)
                     currentFavourites.add(animeId)
                 }
             }
             _favouriteIds.value = currentFavourites
-
         }
     }
 

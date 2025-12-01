@@ -20,18 +20,14 @@ class AnimeDetailsViewModel: ViewModel() {
 
     fun setAnime(animeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-
             _anime.value = APIAnimeRepository.getAnimeById(animeId)
-
             _isFavourite.value = LocalAnimeRepository.isFavourite(animeId)
-
         }
     }
 
     fun toggleFavourite(){
         val currentAnime = _anime.value ?: return
         val animeId = currentAnime.id ?: return
-
         viewModelScope.launch(Dispatchers.IO){
             if (_isFavourite.value) {
                 LocalAnimeRepository.removeFromFavourites(animeId)
@@ -42,5 +38,4 @@ class AnimeDetailsViewModel: ViewModel() {
             }
         }
     }
-
 }

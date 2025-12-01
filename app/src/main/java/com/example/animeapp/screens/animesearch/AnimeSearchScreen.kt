@@ -31,10 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.animeapp.components.AnimeDetailsItem
 
-
 @Composable
 fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
-
     var id by remember {mutableStateOf<String>("")}
     val anime by animeSearchViewModel.anime.collectAsState()
     var lastSearchId by remember { mutableStateOf<Int?>(null) }
@@ -57,7 +55,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
             .fillMaxSize()
             .padding(8.dp)
     ) {
-
         // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -70,6 +67,7 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+
             HorizontalDivider(
                 thickness = 2.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -78,7 +76,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                     .weight(1f)
             )
         } // Title row end
-
         // Search bar start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -120,7 +117,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 Text("Search")
             }
         } // Search bar end
-
         // Result box start
         Box(
             contentAlignment = Alignment.Center,
@@ -133,8 +129,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
-
-
                 anime != null -> {
                   Box(
                       modifier = Modifier
@@ -148,7 +142,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                       )
                   }
                 }
-
                 lastSearchId != null -> {
                   Text(
                       text = "Anime with id $lastSearchId cannot be found",
@@ -156,7 +149,6 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                       color = MaterialTheme.colorScheme.error
                   )
                 }
-
                 else -> {
                     Text(
                         text = "Enter id to start",
@@ -165,6 +157,5 @@ fun AnimeSearchScreen(animeSearchViewModel: AnimeSearchViewModel) {
                 }
             }
         } // Result box end
-
     } // End main
 }

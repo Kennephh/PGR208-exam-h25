@@ -3,6 +3,7 @@ package com.example.animeapp.screens.animecreate
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,6 @@ fun AnimeCreateScreen(
     onAnimeClick: (UserCreatedAnime) -> Unit,
     onDeleteClick: (UserCreatedAnime) -> Unit
     ){
-
     val animeList by animeCreateViewModel.userCreatedAnimeList.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -56,34 +56,44 @@ fun AnimeCreateScreen(
         mutableStateOf("")
     }
 
+    var titleError by remember {
+        mutableStateOf(false)
+    }
+
+    var genreError by remember {
+        mutableStateOf(false)
+    }
+
+    var synopsisError by remember {
+        mutableStateOf(false)
+    }
+
     fun addNewAnime(){
-        if(title.isNotBlank() && genre.isNotBlank() && synopsis.isNotBlank()){
+        titleError = title.isBlank()
+        genreError = genre.isBlank()
+        synopsisError = synopsis.isBlank()
+
+        if(!titleError && !genreError && !synopsisError){
             val trimmedTitle = title.trim()
             val trimmedGenre = genre.trim()
             val trimmedSynopsis = synopsis.trim()
-
-            //val newGenre = Genre(0,trimmedGenre) // Alle har id: 0
             val newAnime = UserCreatedAnime(
                 title = trimmedTitle,
                 genre = trimmedGenre,
                 synopsis = trimmedSynopsis
             )
-
             animeCreateViewModel.insertUserCreatedAnime(newAnime)
-
             title = ""
             genre = ""
             synopsis = ""
         }
     }
-
     // Main start
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-
         // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -104,17 +114,17 @@ fun AnimeCreateScreen(
                     .weight(1f)
             )
         } // Title row end
-
         // Search bar start
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
         ){
-
             OutlinedTextField(
                 value = title,
-                onValueChange = {title = it},
+                onValueChange = {
+                    title = it
+                    if(titleError) titleError = false},
                 label = {
                     Text(
                         text = "Enter title..",
@@ -123,6 +133,15 @@ fun AnimeCreateScreen(
                         overflow = TextOverflow.Ellipsis,
                     )
                 },
+                isError = titleError,
+                supportingText = if (titleError) {
+                    {
+                        Text(
+                            text = "Title is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -136,7 +155,9 @@ fun AnimeCreateScreen(
 
             OutlinedTextField(
                 value = genre,
-                onValueChange = {genre = it},
+                onValueChange = {
+                    genre = it
+                    if (genreError) genreError = false},
                 label = {
                     Text(
                         text = "Enter genre..",
@@ -145,6 +166,15 @@ fun AnimeCreateScreen(
                         overflow = TextOverflow.Ellipsis,
                     )
                 },
+                isError = genreError,
+                supportingText = if (genreError) {
+                    {
+                        Text(
+                            text = "Genre is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -158,7 +188,9 @@ fun AnimeCreateScreen(
 
             OutlinedTextField(
                 value = synopsis,
-                onValueChange = {synopsis = it},
+                onValueChange = {
+                    synopsis = it
+                    if (synopsisError) synopsisError = false},
                 label = {
                     Text(
                         text = "Enter synopsis..",
@@ -167,6 +199,15 @@ fun AnimeCreateScreen(
                         overflow = TextOverflow.Ellipsis,
                     )
                 },
+                isError = synopsisError,
+                supportingText = if (synopsisError) {
+                    {
+                        Text(
+                            text = "Synopsis is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -177,48 +218,64 @@ fun AnimeCreateScreen(
                 modifier = Modifier
                     .fillMaxWidth()
             )
-            Button(
-                onClick = {addNewAnime()},
-            ){
-                Text("Add")
-            }
-
-            Button(
-                onClick =  {animeCreateViewModel.setUserCreatedAnimeSort()}
-            ) {
-                Text("Sort alphabetically")
+            Row(){
+                Button(
+                    onClick = {addNewAnime()},
+                ){
+                    Text("Add")
+                }
+                Spacer(
+                    modifier = Modifier
+                        .padding(horizontal = 4.dp)
+                )
+                Button(
+                    onClick =  {animeCreateViewModel.setUserCreatedAnimeSort()}
+                ) {
+                    Text("Sort alphabetically")
+                }
             }
         } // Search bar end
-
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Animes you have created",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
+        if (animeList.isNotEmpty()) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(top = 32.dp)
-            )
-        }
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(16.dp, end = 16.dp, top = 32.dp, bottom = 8.dp)
+                ) {
+                    Text(
+                        text = "Animes you have created",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    )
+                    HorizontalDivider(
+                        thickness = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .weight(1f)
+                    )
+                }
+            }
 
-        LazyColumn(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            items(animeList) { anime ->
-                UserCreatedAnimeItem(
-                    userCreatedAnime = anime,
-                    showDetails = { onAnimeClick(anime) },
-                    onDeleteClick = {onDeleteClick(anime)}
-
-                )
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                items(animeList) { anime ->
+                    UserCreatedAnimeItem(
+                        userCreatedAnime = anime,
+                        showDetails = { onAnimeClick(anime) },
+                        onDeleteClick = {onDeleteClick(anime)}
+                    )
+                }
             }
         }
     } // Main end

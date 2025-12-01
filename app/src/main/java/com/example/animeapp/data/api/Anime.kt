@@ -39,7 +39,7 @@ data class Pagination(
 )
 
 data class Images(
-    val jpg : Jpg
+    val jpg : Jpg?
 )
 
 data class Genre(

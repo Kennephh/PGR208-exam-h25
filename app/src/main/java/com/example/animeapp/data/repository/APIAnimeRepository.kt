@@ -30,7 +30,8 @@ object APIAnimeRepository {
     // Retrofit lager en en klasse av animeservice, som kan brukes til å kjøre http kall
     private val _animeService = _retrofit.create(AnimeService::class.java)
 
-    // Vi bruker AnimeService sin metode og sammenligner id som ble sendt med id i API, hvis det finnes så viser vi respons
+    // Vi bruker AnimeService sin metode og sammenligner id som ble sendt med id i API, hvis det finnes så returnerer vi
+    //.body(). Som er data fra API'et
     suspend fun getAnimeById(id : Int) : Anime? {
         try {
             val response = _animeService.getAnimeById(id)
