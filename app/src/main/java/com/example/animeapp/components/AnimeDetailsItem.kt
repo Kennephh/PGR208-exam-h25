@@ -110,12 +110,7 @@ fun AnimeDetailsItem(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-
-
-
-            Box(
-
-            ){
+            Box{
                 AsyncImage(
                     model = anime.images?.jpg?.largeImageUrl,
                     contentDescription = anime.title,
@@ -229,7 +224,6 @@ fun AnimeDetailsItem(
 
                 // Genre
                 anime.genres?.forEach { genre ->
-
                     val genreName = genre.name ?: return@forEach
 
                     Text(
@@ -247,7 +241,6 @@ fun AnimeDetailsItem(
                             .padding(8.dp)
                     )
                 }
-
             }
 
             HorizontalDivider(
@@ -288,7 +281,6 @@ fun AnimeDetailsItem(
                     "Read more at MyAnimeList"
                 )
             }
-
         }
     }
 }
