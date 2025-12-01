@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
+        // Sørger for at databasen starter først
         LocalAnimeRepository.initializeDatabase(this)
         enableEdgeToEdge()
         setContent {
