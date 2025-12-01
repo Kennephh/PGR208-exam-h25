@@ -38,7 +38,6 @@ fun AnimeCreateScreen(
     onAnimeClick: (UserCreatedAnime) -> Unit,
     onDeleteClick: (UserCreatedAnime) -> Unit
     ){
-
     val animeList by animeCreateViewModel.userCreatedAnimeList.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -76,29 +75,23 @@ fun AnimeCreateScreen(
             val trimmedTitle = title.trim()
             val trimmedGenre = genre.trim()
             val trimmedSynopsis = synopsis.trim()
-
-            //val newGenre = Genre(0,trimmedGenre) // Alle har id: 0
             val newAnime = UserCreatedAnime(
                 title = trimmedTitle,
                 genre = trimmedGenre,
                 synopsis = trimmedSynopsis
             )
-
             animeCreateViewModel.insertUserCreatedAnime(newAnime)
-
             title = ""
             genre = ""
             synopsis = ""
         }
     }
-
     // Main start
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-
         // Title row start
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -119,14 +112,12 @@ fun AnimeCreateScreen(
                     .weight(1f)
             )
         } // Title row end
-
         // Search bar start
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
         ){
-
             OutlinedTextField(
                 value = title,
                 onValueChange = {
@@ -230,7 +221,6 @@ fun AnimeCreateScreen(
                 Text("Add")
             }
         } // Search bar end
-
         if (animeList.isNotEmpty()) {
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -270,12 +260,9 @@ fun AnimeCreateScreen(
                         userCreatedAnime = anime,
                         showDetails = { onAnimeClick(anime) },
                         onDeleteClick = {onDeleteClick(anime)}
-
                     )
                 }
             }
         }
-
-
     } // Main end
 }
