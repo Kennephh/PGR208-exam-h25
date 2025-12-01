@@ -53,7 +53,6 @@ fun AnimeDetailsItem(
     onFavouriteClick: () -> Unit,
     goBack: ( () -> Unit ) ? = null
 ) {
-
     val borderThickness = 2.dp
     val context = LocalContext.current
 
