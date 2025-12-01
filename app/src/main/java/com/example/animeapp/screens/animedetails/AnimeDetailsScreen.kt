@@ -20,7 +20,6 @@ fun AnimeDetailsScreen(
     onBackClick: () -> Unit,
     viewModel: AnimeDetailsViewModel
 ) {
-
     LaunchedEffect(animeId) {
         viewModel.setAnime(animeId)
     }
@@ -49,5 +48,4 @@ fun AnimeDetailsScreen(
             CircularProgressIndicator()
         }
     }
-
 }
