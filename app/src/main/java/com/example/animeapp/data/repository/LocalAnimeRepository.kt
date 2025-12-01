@@ -34,6 +34,16 @@ object LocalAnimeRepository {
         }
     }
 
+    // Tileggsfunksjon
+    suspend fun getAllUserCreatedAnimeSort() : List<UserCreatedAnime> {
+        try {
+            return _animeDao.getAllAnimeSort()
+        } catch (e: Exception) {
+            Log.e("getAllUserCreatedAnimeSort func i LocalAnimeRepoCatch", e.toString())
+            return emptyList()
+        }
+    }
+
     suspend fun insertUserCreatedAnime(anime : UserCreatedAnime) : Long {
         return try {
             _animeDao.insertNewAnime(anime)

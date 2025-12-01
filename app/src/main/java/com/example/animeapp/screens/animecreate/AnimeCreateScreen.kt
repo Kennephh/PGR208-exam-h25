@@ -44,6 +44,7 @@ fun AnimeCreateScreen(
         animeCreateViewModel.setUserCreatedAnime()
     }
 
+
     var title by remember {
         mutableStateOf("")
     }
@@ -214,11 +215,16 @@ fun AnimeCreateScreen(
                 modifier = Modifier
                     .fillMaxWidth()
             )
-
             Button(
                 onClick = {addNewAnime()},
             ){
                 Text("Add")
+            }
+
+            Button(
+                onClick =  {animeCreateViewModel.setUserCreatedAnimeSort()}
+            ) {
+                Text("Sort alphabetically")
             }
         } // Search bar end
         if (animeList.isNotEmpty()) {
