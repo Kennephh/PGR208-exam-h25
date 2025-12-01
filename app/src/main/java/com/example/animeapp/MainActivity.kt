@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.animeapp.data.repository.LocalAnimeRepository
 import com.example.animeapp.navigation.AppNavigation
 import com.example.animeapp.screens.anime.AnimeListViewModel
@@ -23,7 +24,9 @@ class MainActivity : ComponentActivity() {
     private val _animeDetailsViewModel : AnimeDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
+
         LocalAnimeRepository.initializeDatabase(this)
         enableEdgeToEdge()
         setContent {
