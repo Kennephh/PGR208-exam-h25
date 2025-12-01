@@ -56,7 +56,6 @@ fun UserCreatedAnimeDetailsItem(
                         color = MaterialTheme.colorScheme.primary
                     )
             ) {
-
                 if (goBack != null){
                     IconButton(
                         onClick = goBack
