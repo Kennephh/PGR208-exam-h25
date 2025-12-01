@@ -78,7 +78,6 @@ fun AnimeItem(
                         )
                 )
             } // End Box-1
-
             // Start Box-2 (Title, info and fav-btn)
             Box(
                 modifier = Modifier
@@ -90,7 +89,6 @@ fun AnimeItem(
                         .fillMaxSize()
                         .padding(8.dp)
                 ) {
-
                     Column(
                         modifier = Modifier
                             .weight(1f)
@@ -100,16 +98,19 @@ fun AnimeItem(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.secondary,
                         )
+
                         Text(
                             text = anime.title ?: "Unknown Title",
                             style = MaterialTheme.typography.titleMedium,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
+
                         HorizontalDivider(
                             thickness = borderThickness,
                             color = MaterialTheme.colorScheme.primary
                         )
+
                         Text(
                             text = "Episodes: ${anime.episodes.toString()}",
                             style = MaterialTheme.typography.bodySmall,
