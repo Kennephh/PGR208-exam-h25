@@ -3,6 +3,7 @@ package com.example.animeapp.screens.animecreate
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -133,14 +134,14 @@ fun AnimeCreateScreen(
                     )
                 },
                 isError = titleError,
-                supportingText = {
-                    if (titleError){
+                supportingText = if (titleError) {
+                    {
                         Text(
                             text = "Title is required",
                             color = MaterialTheme.colorScheme.error
                         )
                     }
-                },
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -166,13 +167,14 @@ fun AnimeCreateScreen(
                     )
                 },
                 isError = genreError,
-                supportingText = {
-                    if (genreError)
-                    Text(
-                        text = "Genre is required",
-                        color = MaterialTheme.colorScheme.error
-                    )
-                },
+                supportingText = if (genreError) {
+                    {
+                        Text(
+                            text = "Genre is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -198,13 +200,14 @@ fun AnimeCreateScreen(
                     )
                 },
                 isError = synopsisError,
-                supportingText = {
-                    if (synopsisError)
-                    Text(
-                        text = "Synopsis is required",
-                        color = MaterialTheme.colorScheme.error
-                    )
-                },
+                supportingText = if (synopsisError) {
+                    {
+                        Text(
+                            text = "Synopsis is required",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                } else null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -215,16 +218,21 @@ fun AnimeCreateScreen(
                 modifier = Modifier
                     .fillMaxWidth()
             )
-            Button(
-                onClick = {addNewAnime()},
-            ){
-                Text("Add")
-            }
-
-            Button(
-                onClick =  {animeCreateViewModel.setUserCreatedAnimeSort()}
-            ) {
-                Text("Sort alphabetically")
+            Row(){
+                Button(
+                    onClick = {addNewAnime()},
+                ){
+                    Text("Add")
+                }
+                Spacer(
+                    modifier = Modifier
+                        .padding(horizontal = 4.dp)
+                )
+                Button(
+                    onClick =  {animeCreateViewModel.setUserCreatedAnimeSort()}
+                ) {
+                    Text("Sort alphabetically")
+                }
             }
         } // Search bar end
         if (animeList.isNotEmpty()) {
