@@ -112,7 +112,7 @@ fun AnimeItem(
                         )
 
                         Text(
-                            text = "Episodes: ${anime.episodes.toString()}",
+                            text = "Episodes: ${anime.episodes?.toString() ?: "N/A"}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.secondary,
                             maxLines = 1,
