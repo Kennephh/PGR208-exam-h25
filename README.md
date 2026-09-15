@@ -10,5 +10,7 @@ Eksamen i Android programmering, essensen i denne oppgaven var å hente animéer
 
 ---
 Hovedansvar:
+
 Alexander: Styling av screens, paginering, opprette database
+
 Kenneth, Michael: Sette opp HTTP kall mot API'et
